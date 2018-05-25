@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.workshop.crmworkshop.entity.User;
+import pl.coderslab.betok.entity.User;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

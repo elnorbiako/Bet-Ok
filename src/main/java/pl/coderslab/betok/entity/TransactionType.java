@@ -9,7 +9,6 @@ public class TransactionType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "transaction_id")
     private Long id;
 
     private String transactionName;

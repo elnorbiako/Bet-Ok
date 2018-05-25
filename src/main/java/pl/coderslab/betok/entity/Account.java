@@ -12,7 +12,6 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "account_id")
     private Long id;
 
     @OneToOne
@@ -20,6 +19,7 @@ public class Account {
 
     private BigDecimal cash;
 
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Transaction> transactions;
 
     public Account() {

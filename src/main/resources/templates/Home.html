@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Users</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th {
+            background: #000;
+            color: #fff;
+        }
+        td {
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+<div align="right">
+
+    <p sec:authorize="isAuthenticated()">
+    <p>Logged as: <span sec:authentication="name"></span></p>
+    <p>Roles: <span sec:authentication="authorities"></span></p>
+    <p>Account balance: <span sec:authentication="e"></span></p>
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+
+    <p sec:authorize-url="/admin/">
+        <a th:href="@{/admin/panel}"><button>Admin page</button></a><br>
+    </p>
+</div>
+
+
+</body>
+</html>

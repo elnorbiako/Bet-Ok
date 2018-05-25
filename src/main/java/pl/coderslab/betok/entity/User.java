@@ -1,6 +1,10 @@
 package pl.coderslab.betok.entity;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -17,9 +21,20 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @NotBlank(message = "First name field is mandatory.")
     private String firstName;
+
+    @NotBlank(message = "Last name field is mandatory.")
     private String lastName;
+
+    @NotBlank(message = "Please provide a password.")
     private String password;
+
+    @Email
+
+    @NotBlank(message = "Please provide correct email address.")
+    private String email;
+
     private boolean enabled;
 
 
@@ -121,5 +136,13 @@ public class User {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

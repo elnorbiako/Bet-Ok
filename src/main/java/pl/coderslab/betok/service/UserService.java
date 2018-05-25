@@ -16,5 +16,4 @@ public interface UserService {
 
     void saveAdmin(User user);
 
-    List<User> findAllByProjectId(Long projectId);
 }

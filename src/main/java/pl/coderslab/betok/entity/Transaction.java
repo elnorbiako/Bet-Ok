@@ -10,7 +10,6 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "transaction_id")
     private Long id;
 
     @ManyToOne

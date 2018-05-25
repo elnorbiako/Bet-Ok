@@ -2,12 +2,14 @@ package pl.coderslab.betok.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.coderslab.betok.entity.Account;
 import pl.coderslab.betok.entity.Role;
 import pl.coderslab.betok.entity.User;
 import pl.coderslab.betok.repository.UserRepository;
 
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -57,14 +59,13 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = new HashSet<>(Collections.singletonList(role));
         user.setRoles(roles);
 
+        Account account = new Account();
+        BigDecimal bd = new BigDecimal("0.00");
+        account.setCash(bd);
+        user.setAccount(account);
+
         userRepository.save(user);
     }
-
-    @Override
-    public List<User> findAllByProjectId(Long projectId) {
-        return userRepository.findAllByProjectsId(projectId);
-    }
-
 
     @Override
     public void saveAdmin(User user) {
