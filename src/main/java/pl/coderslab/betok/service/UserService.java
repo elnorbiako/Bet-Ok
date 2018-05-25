@@ -1,5 +1,6 @@
 package pl.coderslab.betok.service;
 
+import org.springframework.security.core.Authentication;
 import pl.coderslab.betok.entity.User;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface UserService {
     void saveUser(User user);
 
     void saveAdmin(User user);
+
+    User getLoggedUser (Authentication auth);
 
 }

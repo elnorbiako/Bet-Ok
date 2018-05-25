@@ -26,7 +26,7 @@
     <p sec:authorize="isAuthenticated()">
     <p>Logged as: <span sec:authentication="name"></span></p>
     <p>Roles: <span sec:authentication="authorities"></span></p>
-    <p>Account balance: <span sec:authentication="e"></span></p>
+    <p>Account balance: <span th:text="|*{user.account.getCash()} credits|">69></span></p>
     </p>
 
     <form th:action="@{/logout}" method="post">

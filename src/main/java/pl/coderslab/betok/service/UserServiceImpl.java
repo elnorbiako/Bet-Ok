@@ -1,5 +1,6 @@
 package pl.coderslab.betok.service;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Account;
@@ -80,4 +81,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+
+    @Override
+    public User getLoggedUser(Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
+        return user;
+    }
 }
