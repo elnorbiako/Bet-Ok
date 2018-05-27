@@ -8,12 +8,18 @@
 <body>
 
 
-<form th:action="@{/user/cashIn}" th:object="${amount}" method="post">
-    <p>Amount to add: <input type="number" th:field="${amount}" />
+<!--<form th:action="@{/user/cashIn}" th:object="${amount}" method="post">-->
+    <!--<p>Amount to add: <input type="number" th:field="${amount}" />-->
 
     <!--<button th:field="${amount}" th:value="100"> 100 credits </button>-->
-    <button type="submit">Save</button>
-</form>
+    <!--<button type="submit">Save</button>-->
+<!--</form>-->
+
+<button><a th:href="@{/user/cashIn/10}">Add 10 credits.</a></button>
+<button><a th:href="@{/user/cashIn/50}">Add 50 credits.</a></button>
+<button><a th:href="@{/user/cashIn/100}">Add 100 credits.</a></button>
+<button><a th:href="@{/user/cashIn/200}">Add 200 credits.</a></button>
+<button><a th:href="@{/user/cashIn/550}">Add 500 credits and get 10% free!</a></button>
 
 
 </body>

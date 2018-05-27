@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Users</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th {
+            background: #000;
+            color: #fff;
+        }
+        td {
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<h3 th:text="|Last 50 transactions: |">Transactions</h3>
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Type</th>
+        <th>Account Id</th>
+        <th>Created</th>
+        <th>Amount (credits)</th>
+        <th>Details</th>
+
+    </tr>
+    <tr th:each="transaction, iterStat: ${transactions}" th:object="${transaction}">
+        <td th:text="|${iterStat.count}.|">1.</td>
+        <td th:text="*{transactionType.getName()}">CashIn</td>
+        <td th:text="*{account.getId()}">11</td>
+        <td th:text="*{created}">1.1.1999</td>
+        <td th:text="*{amount}">200</td>
+        <td th:href="|/transaction/${transaction.id}|">Transaction details</td>
+    </tr>
+</table>
+
+
+
+<a th:href="@{/admin/panel}">Back to admin panel.</a>
+
+</body>
+</html>

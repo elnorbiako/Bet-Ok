@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+
+    <title>Admin View</title>
+
+</head>
+
+<body>
+
+     <a th:href="@{/admin/addAdmin}">Add a new user with ADMIN rights.</a><br>
+     <a th:href="@{/admin/users}">View all users.</a><br>
+     <a th:href="@{/admin/transactions}">View last 50 transactions.</a><br>
+
+
+     <a th:href="@{/home}">Back to main page.</a>
+
+
+
+</body>
+
+</html>
+

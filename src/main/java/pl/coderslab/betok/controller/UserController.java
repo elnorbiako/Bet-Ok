@@ -5,9 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.User;
 import pl.coderslab.betok.service.TransactionService;
@@ -35,20 +33,17 @@ public class UserController {
     @GetMapping("/user/cashIn")
     public String cashIn(Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
-        BigDecimal amount = new BigDecimal(0);
+        double amount = 0.00;
         model.addAttribute("amount" , amount);
         model.addAttribute("user", user);
 
         return "user/CashInForm";
     }
 
-    @PostMapping("/user/cashIn")
-    public String cashIn(@ModelAttribute User user,@ModelAttribute BigDecimal amount, BindingResult result) {
-        if (result.hasErrors()) {
-            return "user/CashInForm";
-        }
-//        BigDecimal amountBD = new BigDecimal(amount);
-        transactionService.saveCashInTransaction(amount, user.getAccount());
+    @GetMapping("/user/cashIn/{amount}")
+    public String cashIn(@PathVariable double amount, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        transactionService.saveCashInTransaction(BigDecimal.valueOf(amount), user.getAccount());
         return "redirect:/home";
     }
 

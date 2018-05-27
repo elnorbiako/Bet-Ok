@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Account;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.TransactionType;
+import pl.coderslab.betok.repository.AccountRepository;
 import pl.coderslab.betok.repository.TransactionRepository;
 import pl.coderslab.betok.repository.TransactionTypeRepository;
 
@@ -20,6 +21,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
 
     @Override
     public List<Transaction> findByTransactionTypeName(String name) {
@@ -37,12 +41,21 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> findTop50ByOrderByCreatedDesc() {
+        return transactionRepository.findTop50ByOrderByCreatedDesc();
+    }
+
+    @Override
     public void saveCashInTransaction(BigDecimal amount, Account account) {
         Transaction transactionDb = new Transaction();
         transactionDb.setCreated(LocalDateTime.now());
         transactionDb.setAmount(amount);
         transactionDb.setTransactionType(transactionTypeRepository.findByName("CashIn"));
         transactionDb.setAccount(account);
+        BigDecimal current = account.getCash();
+        current = current.add(amount);
+        account.setCash(current);
         transactionRepository.save(transactionDb);
+        accountRepository.save(account);
     }
 }
