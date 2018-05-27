@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <!-- Page title -->
+    <title> Register</title>
+</head>
+<body>
+
+
+<form th:action="@{/user/cashIn}" th:object="${amount}" method="post">
+    <p>Amount to add: <input type="number" th:field="${amount}" />
+
+    <!--<button th:field="${amount}" th:value="100"> 100 credits </button>-->
+    <button type="submit">Save</button>
+</form>
+
+
+</body>
+</html>

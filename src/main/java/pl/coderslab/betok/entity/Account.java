@@ -1,5 +1,7 @@
 package pl.coderslab.betok.entity;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Account {
     @OneToOne
     private User user;
 
+    @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private BigDecimal cash;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)

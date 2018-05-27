@@ -1,5 +1,7 @@
 package pl.coderslab.betok.entity;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,6 +20,7 @@ public class Transaction {
 
     private LocalDateTime created;
 
+    @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private BigDecimal amount;
 
     @OneToOne

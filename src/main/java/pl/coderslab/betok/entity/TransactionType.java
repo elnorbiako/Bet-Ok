@@ -11,7 +11,7 @@ public class TransactionType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String transactionName;
+    private String name;
 
     public TransactionType() {
     }
@@ -24,11 +24,11 @@ public class TransactionType {
         this.id = id;
     }
 
-    public String getTransactionName() {
-        return transactionName;
+    public String getName() {
+        return name;
     }
 
-    public void setTransactionName(String transactionName) {
-        this.transactionName = transactionName;
+    public void setName(String name) {
+        this.name = name;
     }
 }
