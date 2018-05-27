@@ -67,7 +67,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/transactions")
-    public String showAllProjects(Model model) {
+    public String showAllTransactions(Model model) {
         model.addAttribute("transactions", transactionService.findTop50ByOrderByCreatedDesc());
         return "admin/TransactionsView";
     }

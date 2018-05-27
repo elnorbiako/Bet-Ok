@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.betok.entity.Account;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.User;
 import pl.coderslab.betok.service.TransactionService;
@@ -46,5 +47,44 @@ public class UserController {
         transactionService.saveCashInTransaction(BigDecimal.valueOf(amount), user.getAccount());
         return "redirect:/home";
     }
+
+
+    @GetMapping("/user/cashOut")
+    public String cashOut(Model model) {
+        double amount = 0.00;
+        model.addAttribute("amount" , amount);
+
+        return "user/CashOutForm";
+    }
+
+    @PostMapping("/user/cashOut")
+    public String cashOut(Model model, @RequestParam("amount") double amount, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        BigDecimal balance = user.getAccount().getCash();
+        Account account = user.getAccount();
+
+            if (BigDecimal.valueOf(amount).compareTo(balance)>0) {
+                model.addAttribute("message", "Not enough credits on account.");
+            }
+            else {
+                transactionService.saveCashOutTransaction(BigDecimal.valueOf(amount), account);
+                model.addAttribute("message", "Transfer complete.");
+            }
+
+
+        return "user/CashOutForm";
+    }
+
+
+
+    @GetMapping("/user/transactions")
+    public String showUserTransactions(Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        model.addAttribute("transactions", transactionService.findByAccountIdOrderByCreatedDesc(user.getAccount().getId()));
+        return "user/UserTransactionsView";
+    }
+
+
+
 
 }

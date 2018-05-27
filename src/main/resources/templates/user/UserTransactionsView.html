@@ -22,12 +22,11 @@
 </head>
 <body>
 
-<h3 th:text="|Last 50 transactions: |">Transactions</h3>
+<h3 th:text="|Transactions: |">Transactions</h3>
 <table>
     <tr>
         <th>No.</th>
         <th>Type</th>
-        <th>Account Id</th>
         <th>Created</th>
         <th>Amount (credits)</th>
         <th>Details</th>
@@ -36,7 +35,6 @@
     <tr th:each="transaction, iterStat: ${transactions}" th:object="${transaction}">
         <td th:text="|${iterStat.count}.|">1.</td>
         <td th:text="*{transactionType.getName()}">CashIn</td>
-        <td th:text="*{account.getId()}">11</td>
         <td th:text="*{created}">1.1.1999</td>
         <td th:text="*{amount}">200</td>
         <td><a th:href="@{/transaction(id=${transaction.id})}">Transaction details</a></td>
@@ -45,7 +43,7 @@
 
 
 
-<a th:href="@{/admin/panel}">Back to admin panel.</a>
+<a th:href="@{/home}">Back to Home page.</a>
 
 </body>
 </html>

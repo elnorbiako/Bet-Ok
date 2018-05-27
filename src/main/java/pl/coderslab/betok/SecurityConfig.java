@@ -19,7 +19,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*").authenticated()
             .and()
                 .formLogin()
-                .defaultSuccessUrl("/home");
+                .defaultSuccessUrl("/home")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                    .and()
+                      .exceptionHandling()
+                        .accessDeniedPage("/403");
 
     }
 

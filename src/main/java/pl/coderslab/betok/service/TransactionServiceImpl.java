@@ -58,4 +58,18 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(transactionDb);
         accountRepository.save(account);
     }
+
+    @Override
+    public void saveCashOutTransaction(BigDecimal amount, Account account) {
+        Transaction transactionDb = new Transaction();
+        transactionDb.setCreated(LocalDateTime.now());
+        transactionDb.setAmount(amount);
+        transactionDb.setTransactionType(transactionTypeRepository.findByName("CashOut"));
+        transactionDb.setAccount(account);
+        BigDecimal current = account.getCash();
+        current = current.subtract(amount);
+        account.setCash(current);
+        transactionRepository.save(transactionDb);
+        accountRepository.save(account);
+    }
 }
