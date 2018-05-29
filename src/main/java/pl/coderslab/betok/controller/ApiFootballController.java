@@ -14,6 +14,8 @@ import pl.coderslab.betok.dto.CountryDto;
 import pl.coderslab.betok.dto.LeagueDto;
 import pl.coderslab.betok.dto.TeamDto;
 import pl.coderslab.betok.entity.Country;
+import pl.coderslab.betok.entity.League;
+import pl.coderslab.betok.entity.Team;
 import pl.coderslab.betok.repository.CountryRepository;
 import pl.coderslab.betok.repository.EventRepository;
 import pl.coderslab.betok.repository.LeagueRepository;
@@ -51,35 +53,41 @@ public class ApiFootballController {
         }
         return "redirect:/admin/panel";
     }
-//
-//    @RequestMapping("/admin/get-leagues")
-//    public String getLeaguesAction() {
-//        String url = "https://apifootball.com/api/?action=get_leagues&APIkey=c4e29ebddc8c975cfd056599e5421d65d34ea41eab067765b95e776416e59cb6";
-//        RestTemplate restTemplate = new RestTemplate();
-//        ResponseEntity<LeagueDto[]> responseLeagues = restTemplate.getForEntity(
-//                url, LeagueDto[].class);
-//        LeagueDto[] leagues = responseLeagues.getBody();
-//        for (LeagueDto league: leagues) {
-//            logger.info("leagues {}", league);
-//            LeagueDao.add(league);
-//        }
-//        return "some result - leagues";
-//    }
-//
-//    @RequestMapping("/admin/get-teams/{leagueId}")
-//    public String getTeamsAction(@PathVariable("leagueId") int leagueId) {
-//        String url = "https://apifootball.com/api/?action=get_standings&league_id=" + leagueId + "&APIkey=c4e29ebddc8c975cfd056599e5421d65d34ea41eab067765b95e776416e59cb6";
-//        RestTemplate restTemplate = new RestTemplate();
-//        ResponseEntity<TeamDto[]> responseTeams = restTemplate.getForEntity(
-//                url, TeamDto[].class);
-//        TeamDto[] teams = responseTeams.getBody();
-//        for (TeamDto team: teams) {
-//            logger.info("teams {}", team);
-//            TeamDao.add(team);
-//        }
-//        return "some result - teams";
-//    }
-//
+
+    @GetMapping("/admin/get-leagues")
+    public String getLeaguesAction() {
+        String url = "https://apifootball.com/api/?action=get_leagues&APIkey=c4e29ebddc8c975cfd056599e5421d65d34ea41eab067765b95e776416e59cb6";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<LeagueDto[]> responseLeagues = restTemplate.getForEntity(
+                url, LeagueDto[].class);
+        LeagueDto[] leagues = responseLeagues.getBody();
+        for (LeagueDto league: leagues) {
+            League leagueEntity = new League();
+            leagueEntity.setName(league.getName());
+            leagueEntity.setId(league.getApiLeagueId());
+
+            leagueEntity.setCountry(countryRepository.findById(league.getApiCountryId()).orElse(null));
+            leagueRepository.save(leagueEntity);
+        }
+        return "redirect:/admin/panel";
+    }
+
+    @GetMapping("/admin/get-teams/{leagueId}")
+    public String getTeamsAction(@PathVariable("leagueId") int leagueId) {
+        String url = "https://apifootball.com/api/?action=get_standings&league_id=" + leagueId + "&APIkey=c4e29ebddc8c975cfd056599e5421d65d34ea41eab067765b95e776416e59cb6";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<TeamDto[]> responseTeams = restTemplate.getForEntity(
+                url, TeamDto[].class);
+        TeamDto[] teams = responseTeams.getBody();
+        for (TeamDto team: teams) {
+            Team teamEntity = new Team();
+            teamEntity.setName(team.getName());
+            teamEntity.setLeague(leagueRepository.findById(team.getApiLeagueId()).orElse(null));
+            teamRepository.save(teamEntity);
+        }
+        return "redirect:/admin/panel";
+    }
+
 //
 //    @RequestMapping("/admin/get-match")
 //    public String getMatchAction() {

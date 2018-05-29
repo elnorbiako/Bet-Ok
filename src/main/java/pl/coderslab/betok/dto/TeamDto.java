@@ -10,6 +10,8 @@ public class TeamDto {
         long apiLeagueId;
         @JsonProperty("team_name")
         String name;
+
+        // window for future functionality of keeping and presenting full standings from various leagues; currently not used 
         @JsonProperty("overall_league_position")
         int position;
         @JsonProperty("overall_league_PTS")
