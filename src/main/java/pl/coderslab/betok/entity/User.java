@@ -31,7 +31,6 @@ public class User {
     private String password;
 
     @Email
-
     @NotBlank(message = "Please provide correct email address.")
     private String email;
 

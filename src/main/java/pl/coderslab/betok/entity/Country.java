@@ -1,21 +1,25 @@
 package pl.coderslab.betok.entity;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "countries")
+public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
     private Long id;
 
-    @Column(name = "role")
     private String name;
 
-    public Role() {
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    private Set<League> leagues;
+
+
+    public Country() {
     }
+
 
     public Long getId() {
         return id;
@@ -31,5 +35,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<League> getLeagues() {
+        return leagues;
+    }
+
+    public void setLeagues(Set<League> leagues) {
+        this.leagues = leagues;
     }
 }

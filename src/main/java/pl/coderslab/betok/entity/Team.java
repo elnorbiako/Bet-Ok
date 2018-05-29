@@ -1,20 +1,23 @@
 package pl.coderslab.betok.entity;
 
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "teams")
+public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
     private Long id;
 
-    @Column(name = "role")
+    @Column(nullable = false, unique = true)
     private String name;
 
-    public Role() {
+    @ManyToOne
+    @JoinColumn
+    private League league;
+
+    public Team() {
     }
 
     public Long getId() {
@@ -31,5 +34,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
     }
 }
