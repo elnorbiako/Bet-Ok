@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import pl.coderslab.betok.dto.TeamDto;
 import pl.coderslab.betok.dto.TvsTDto;
@@ -34,8 +35,8 @@ public class EventController {
     }
 
 
-    @GetMapping("/event/{id}")
-    public String home(@PathVariable ("id") long id, Model model, Authentication authentication) {
+    @GetMapping("/event")
+    public String home(@RequestParam(value = "id", required = true) long id, Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
         model.addAttribute(user);
 
