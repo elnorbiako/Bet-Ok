@@ -26,7 +26,6 @@
 
     <p sec:authorize="isAuthenticated()">
     <p>Logged as: <span sec:authentication="name"></span></p>
-    <p sec:authorize-url="/admin/">Roles: <span sec:authentication="authorities"></span></p>
     <p>Account balance: <span th:text="|*{user.account.getCash()} credits|">69></span></p>
     </p>
 
@@ -34,42 +33,37 @@
         <input type="submit" value="Logout"/>
     </form>
 
-    <p sec:authorize-url="/admin/">
-        <a th:href="@{/admin/panel}"><button>Admin page</button></a><br>
-    </p>
 </div>
 
 <div align="left">
-<a th:href="@{/user/cashIn}"><button>Add some cash</button></a><br>
-<a th:href="@{/user/cashOut}"><button>Cash Out!</button></a><br>
-<a th:href="@{/user/transactions}"><button>My transactions</button></a><br>
+<a th:href="@{/home}"><button>Back to homepage.</button></a><br>
+
 </div>
 
 
 <div align="center">
-<h3 th:text="|Upcoming events: |">Transactions</h3>
+<h3 th:text="|Team vs Team history: |">TvsT</h3>
 <table>
     <tr>
-        <th>Home Team</th>
         <th>Info</th>
+        <th>Home Team</th>
+        <th colspan="2"> Result</th>
         <th>Away Team</th>
-        <th>Make Bet!</th>
 
 
     </tr>
-    <tr th:each="event, iterStat: ${events}" th:object="${event}">
+    <tr th:each="TvsTDto, iterStat: ${history}" th:object="${TvsTDto}">
         <!--<td th:text="|${iterStat.count}.|">1.</td>-->
-        <td th:text="*{homeTeamName}">Home Team</td>
         <td>
             <p th:text="|*{date}   *{time}|">11</p>
             <p th:text="*{league.getName()}">League name</p>
         </td>
+        <td th:text="*{homeTeamName}">Home Team</td>
+        <td th:text="*{homeGoals}">0</td>
+        <td th:text="*{awayGoals}">0</td>
+
         <td th:text="*{awayTeamName}">Away</td>
-        <td>
-            <button>
-                <a th:href="@{/event/${event.id})}">More...</a>
-            </button>
-        </td>
+
     </tr>
 </table>
 </div>

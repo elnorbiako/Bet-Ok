@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+
+    <title>Populate Db View</title>
+
+</head>
+
+<body>
+
+     <h3 th:text="|DataBase population procedure:|"/>
+     <a th:href="@{/admin/get-countries}">Generate countries from API (1).</a><br>
+     <a th:href="@{/admin/get-leagues}">Generate leagues from API (2).</a><br>
+     <a th:href="@{/admin/get-teams/63}">Generate teams from Championship (3).</a><br>
+     <a th:href="@{/admin/get-teams/128}">Generate teams from Ligue 2 (4).</a><br>
+     <a th:href="@{/admin/get-events}">Generate events from last 3 months (5).</a><br>
+
+
+     <a th:href="@{/admin/panel}">Back to admin panel.</a>
+
+
+
+</body>
+
+</html>
+

@@ -5,6 +5,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Class to be used as a 'localisation' parameter, that can give us a possibility of additional options for user (for
+ * ex. teams from same city (or near localisation - based on a postcode) will be auto added as favorities, current
+ * matches in users city will be listed as first, national games will have additional bonus etc. At the moment class
+ * have no use.
+ */
 @Entity
 @Table(name = "addresses")
 public class Address {

@@ -15,7 +15,7 @@ public class Event {
     private LocalDate date;
 
     // need to think about that - if String will be enough. Maybe a entity for that?
-    // also - don't know how API shows time during live events. So i guess it will be: FT, HT and 1-90
+    // also - don't know how API shows time during live events. So i guess it will be: SCHEDULED, FT, HT and 1-90
     private String status;
 
     private String time;
@@ -24,13 +24,23 @@ public class Event {
     @JoinColumn
     private League league;
 
-    private String homeTeam;
+    @ManyToOne
+    @JoinColumn
+    private Team homeTeam;
 
-    private String awayTeam;
+    private String homeTeamName;
+
+    @ManyToOne
+    @JoinColumn
+    private Team awayTeam;
+
+    private String awayTeamName;
 
     private int homeGoals;
 
     private int awayGoals;
+
+    private int live;
 
 
     public Event() {
@@ -76,21 +86,6 @@ public class Event {
         this.league = league;
     }
 
-    public String getHomeTeam() {
-        return homeTeam;
-    }
-
-    public void setHomeTeam(String homeTeam) {
-        this.homeTeam = homeTeam;
-    }
-
-    public String getAwayTeam() {
-        return awayTeam;
-    }
-
-    public void setAwayTeam(String awayTeam) {
-        this.awayTeam = awayTeam;
-    }
 
     public int getHomeGoals() {
         return homeGoals;
@@ -106,5 +101,45 @@ public class Event {
 
     public void setAwayGoals(int awayGoals) {
         this.awayGoals = awayGoals;
+    }
+
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public Team getAwayTeam() {
+        return awayTeam;
+    }
+
+    public void setAwayTeam(Team awayTeam) {
+        this.awayTeam = awayTeam;
+    }
+
+    public int getLive() {
+        return live;
+    }
+
+    public void setLive(int live) {
+        this.live = live;
+    }
+
+    public String getHomeTeamName() {
+        return homeTeamName;
+    }
+
+    public void setHomeTeamName(String homeTeamName) {
+        this.homeTeamName = homeTeamName;
+    }
+
+    public String getAwayTeamName() {
+        return awayTeamName;
+    }
+
+    public void setAwayTeamName(String awayTeamName) {
+        this.awayTeamName = awayTeamName;
     }
 }

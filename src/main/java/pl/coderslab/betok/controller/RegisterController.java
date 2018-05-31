@@ -49,9 +49,6 @@ public class RegisterController {
             return "user/UserForm";
         }
         User userDb = new User();
-//        Set<Role> userRoles = new HashSet<>();
-//        userRoles.add(roleService.getOrCreate("ADMIN"));
-//        userDb.setRoles(userRoles);
 
         userDb.setUsername(user.getUsername());
         userDb.setFirstName(user.getFirstName());

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EventDto {
+public class TvsTDto {
 
     @JsonProperty("league_id")
     long apiLeagueId;
@@ -28,7 +28,7 @@ public class EventDto {
     int live;
 
 
-    public EventDto() {
+    public TvsTDto() {
     }
 
     public long getApiLeagueId() {

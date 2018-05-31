@@ -71,12 +71,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveAdmin(User user) {
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+      //  user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
 
-        Role role = roleService.getOrCreate(ADMIN_ROLE_NAME);
-        Set<Role> roles = new HashSet<>(Collections.singletonList(role));
+        Role roleA = roleService.getOrCreate(ADMIN_ROLE_NAME);
+        Role roleU = roleService.getOrCreate(DEFAULT_USER_ROLE_NAME);
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleA);
+        roles.add(roleU);
         user.setRoles(roles);
+
+        Account account = new Account();
+        BigDecimal bd = new BigDecimal("0.00");
+        account.setCash(bd);
+        user.setAccount(account);
 
         userRepository.save(user);
     }

@@ -2,6 +2,7 @@ package pl.coderslab.betok.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.betok.entity.Account;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.TransactionType;
@@ -45,6 +46,7 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findTop50ByOrderByCreatedDesc();
     }
 
+    @Transactional
     @Override
     public void saveCashInTransaction(BigDecimal amount, Account account) {
         Transaction transactionDb = new Transaction();
@@ -59,6 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
         accountRepository.save(account);
     }
 
+    @Transactional
     @Override
     public void saveCashOutTransaction(BigDecimal amount, Account account) {
         Transaction transactionDb = new Transaction();

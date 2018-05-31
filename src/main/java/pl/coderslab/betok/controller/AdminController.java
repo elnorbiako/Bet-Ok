@@ -54,6 +54,7 @@ public class AdminController {
         adminDb.setFirstName(user.getFirstName());
         adminDb.setLastName(user.getLastName());
         adminDb.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        adminDb.setEmail(user.getEmail());
         adminDb.setEnabled(true);
 
         userService.saveAdmin(adminDb);
