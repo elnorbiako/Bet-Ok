@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import pl.coderslab.betok.dto.TTInfoResponse;
 import pl.coderslab.betok.dto.TeamDto;
 import pl.coderslab.betok.dto.TvsTDto;
 import pl.coderslab.betok.entity.Event;
@@ -45,10 +46,9 @@ public class EventController {
 
         String url = "https://apifootball.com/api/?action=get_H2H&firstTeam=" + event.getHomeTeamName() + "&secondTeam=" + event.getAwayTeamName() + "&APIkey=c4e29ebddc8c975cfd056599e5421d65d34ea41eab067765b95e776416e59cb6";
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<TvsTDto[]> responseTvsT = restTemplate.getForEntity(
-                url, TvsTDto[].class);
-        TvsTDto[] history = responseTvsT.getBody();
-        model.addAttribute("history", history);
+        List<TvsTDto> TTs = restTemplate.getForObject(url,TTInfoResponse.class).getTvsTs();
+
+        model.addAttribute("TTs", TTs);
         return "user/EventView";
     }
 }

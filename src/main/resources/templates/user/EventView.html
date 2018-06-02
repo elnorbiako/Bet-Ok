@@ -52,17 +52,17 @@
 
 
     </tr>
-    <tr th:each="TvsTDto, iterStat: ${history}" th:object="${TvsTDto}">
+    <tr th:each="TvsTDto, iterStat: ${TTs}" th:object="${TvsTDto}">
         <!--<td th:text="|${iterStat.count}.|">1.</td>-->
         <td>
             <p th:text="|*{date}   *{time}|">11</p>
-            <p th:text="*{league.getName()}">League name</p>
+            <!--<p th:text="*{league.getName()}">League name</p>-->
         </td>
-        <td th:text="*{homeTeamName}">Home Team</td>
-        <td th:text="*{homeGoals}">0</td>
-        <td th:text="*{awayGoals}">0</td>
+        <td th:text="*{homeTeam}">Home Team</td>
+        <strong><td th:text="  *{homeGoals}  ">0</td></strong>
+        <strong><td th:text="  *{awayGoals}  ">0</td></strong>
 
-        <td th:text="*{awayTeamName}">Away</td>
+        <td th:text="*{awayTeam}">Away</td>
 
     </tr>
 </table>
