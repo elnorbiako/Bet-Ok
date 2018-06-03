@@ -1,5 +1,6 @@
 package pl.coderslab.betok.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,9 @@ public class AdminController {
         }
         User adminDb = new User();
 
+        // Something I found on mykong to easy up the process of transfering data from similar entity (to dto fror ex.
+        // If there will be some free time - learn it! 
+        //BeanUtils.copyProperties();
         adminDb.setUsername(user.getUsername());
         adminDb.setFirstName(user.getFirstName());
         adminDb.setLastName(user.getLastName());
