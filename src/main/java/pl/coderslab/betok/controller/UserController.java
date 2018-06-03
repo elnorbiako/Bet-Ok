@@ -4,30 +4,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.betok.entity.Account;
-import pl.coderslab.betok.entity.Transaction;
+import pl.coderslab.betok.entity.Team;
 import pl.coderslab.betok.entity.User;
+import pl.coderslab.betok.service.TeamService;
 import pl.coderslab.betok.service.TransactionService;
 import pl.coderslab.betok.service.UserService;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
     private final TransactionService transactionService;
+    private final TeamService teamService;
 
 
     @Autowired
     public UserController(UserService userService,
-                          TransactionService transactionService) {
+                          TransactionService transactionService, TeamService teamService) {
         this.userService = userService;
         this.transactionService = transactionService;
+        this.teamService = teamService;
     }
 
 
@@ -84,6 +86,50 @@ public class UserController {
         return "user/UserTransactionsView";
     }
 
+    @GetMapping("user/favorites")
+    public String favoritesView(Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        Set<Team> favorites = user.getFavorites();
+
+        model.addAttribute("favorites", favorites);
+        model.addAttribute("user", user);
+
+        return "user/FavoritesView";
+    }
+
+    @GetMapping("user/addToFav")
+    public String addToFavorities(@RequestParam(value = "name", required = true) String name, Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        Team team = teamService.findByName(name);
+
+        Set<Team> favorites = user.getFavorites();
+        favorites.add(team);
+        user.setFavorites(favorites);
+
+        userService.updateUser(user);
+
+        model.addAttribute("favorites", favorites);
+        model.addAttribute("user", user);
+
+        return "user/FavoritesView";
+    }
+
+    @GetMapping("user/remFromFav")
+    public String removeFromFavorities(@RequestParam(value = "name", required = true) String name, Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        Team team = teamService.findByName(name);
+
+        Set<Team> favorites = user.getFavorites();
+        favorites.remove(team);
+        user.setFavorites(favorites);
+
+        userService.updateUser(user);
+
+        model.addAttribute("favorites", favorites);
+        model.addAttribute("user", user);
+
+        return "user/FavoritesView";
+    }
 
 
 

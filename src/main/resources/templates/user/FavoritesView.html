@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Favorites</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: gainsboro;
+            color: brown;
+        }
+
+        td {
+            background: gainsboro;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+<div style="float: right;">
+
+    <p sec:authorize="isAuthenticated()">
+    <p>Logged as: <span sec:authentication="name"></span></p>
+    <p sec:authorize-url="/admin/">Roles: <span sec:authentication="authorities"></span></p>
+    <p>Account balance: <span th:text="|*{user.account.getCash()} credits|">69></span></p>
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+
+    <p sec:authorize-url="/admin/">
+        <a th:href="@{/admin/panel}">
+            <button>Admin page</button>
+        </a><br>
+    </p>
+</div>
+
+<div align="left">
+    <a th:href="@{/home}">
+        <button>Back to homepage.</button>
+    </a><br>
+
+</div>
+
+
+<div align="center">
+    <h3 th:text="|Favorite teams: |">Favorites</h3>
+    <table>
+        <tr>
+            <th>Team name</th>
+            <th>League</th>
+            <th>Upcoming matches</th>
+            <th>Delete from favorites</th>
+
+
+        </tr>
+        <tr th:each="team, iterStat: ${favorites}" th:object="${team}">
+            <!--<td th:text="|${iterStat.count}.|">1.</td>-->
+            <td><a th:href="@{/team(name=${team.name})}" th:text="${team.name}"></a></td>
+            <td>
+                <p th:text="*{league.getName()}">League name</p>
+            </td>
+            <td><a th:href="@{/team(name=${team.name})}" th:text="|Scheduled events|"></a></td>
+            <td>
+                <a th:href="@{/user/remFromFav(name=${team.name})}"></a>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

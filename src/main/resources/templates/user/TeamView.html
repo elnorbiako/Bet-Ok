@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" xmlns:style="http://www.w3.org/1999/xhtml">
 <head>
     <title>Team</title>
     <style>
@@ -42,7 +42,12 @@
     <a th:href="@{/home}">
         <button>Back to homepage.</button>
     </a><br>
-    <a th:href="@{/bets}">
+
+    <a th:href="@{/user/addToFav(name=${team.name})}">
+        <button>Add Team to favorites.</button>
+    </a><br>
+
+    <a th:href="@{/user/bets}">
         <button>My bets.</button>
     </a><br>
 
@@ -54,7 +59,21 @@
 
 <hr>
 
-<div style="float: left">
+<div th:align="center">
+    <p th:text="|Team Standings:|"></p>
+    <p th:text="|Position: ${team.position}|"></p>
+    <p th:text="|Points: ${team.points}|"></p>
+    <p th:text="|Won: ${team.won}|"></p>
+    <p th:text="|Draw: ${team.draw}|"></p>
+    <p th:text="|Lost: ${team.lost}|"></p>
+    <p th:text="|GF: ${team.gf}|"></p>
+    <p th:text="|GA: ${team.ga}|"></p>
+
+
+
+</div>
+
+<div style="float: left" th:width="400">
     <h3 th:text="|Last matches at home: |">Home</h3>
     <table>
         <tr>
@@ -86,7 +105,7 @@
 </div>
 
 
-<div style="float: right">
+<div style="float: right" th:width="400">
     <h3 th:text="|Last matches away: |">Away</h3>
     <table>
         <tr>

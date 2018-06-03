@@ -54,11 +54,10 @@ public class User {
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    private Set<Project> projects;
 //
-//    @OneToMany(mappedBy = "user",
-//            cascade = CascadeType.ALL)
-//    private List<Task> tasks;
-//
-//
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Team> favorites;
+
+
 
 
     public User() {
@@ -143,5 +142,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Team> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<Team> favorites) {
+        this.favorites = favorites;
     }
 }

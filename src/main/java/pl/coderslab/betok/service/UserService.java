@@ -19,4 +19,6 @@ public interface UserService {
 
     User getLoggedUser (Authentication auth);
 
+    void updateUser(User user);
+
 }

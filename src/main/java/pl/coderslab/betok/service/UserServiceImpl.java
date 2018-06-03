@@ -9,6 +9,7 @@ import pl.coderslab.betok.entity.User;
 import pl.coderslab.betok.repository.UserRepository;
 
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -26,13 +27,15 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleServiceImpl roleService;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final EntityManager em;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleServiceImpl roleService,
-                           BCryptPasswordEncoder passwordEncoder) {
+                           BCryptPasswordEncoder passwordEncoder, EntityManager em) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.em = em;
     }
 
     @Override
@@ -94,5 +97,10 @@ public class UserServiceImpl implements UserService {
     public User getLoggedUser(Authentication auth) {
         User user = userRepository.findByUsername(auth.getName());
         return user;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        em.merge(user);
     }
 }
