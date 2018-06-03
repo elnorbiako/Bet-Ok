@@ -6,23 +6,29 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamDto {
 
-        @JsonProperty("league_id")
-        long apiLeagueId;
-        @JsonProperty("team_name")
-        String name;
+    @JsonProperty("league_id")
+    long apiLeagueId;
+    @JsonProperty("team_name")
+    String name;
 
-        // window for future functionality of keeping and presenting full standings from various leagues; currently not used
-        @JsonProperty("overall_league_position")
-        int position;
-        @JsonProperty("overall_league_PTS")
-        int points;
+    // window for future functionality of keeping and presenting full standings from various leagues; implemented
+    @JsonProperty("overall_league_position")
+    int position;
+    @JsonProperty("overall_league_PTS")
+    int points;
+    @JsonProperty("overall_league_payed")
+    int played;
+    @JsonProperty("overall_league_W")
+    int won;
+    @JsonProperty("overall_league_D")
+    int draw;
+    @JsonProperty("overall_league_L")
+    int lost;
+    @JsonProperty("overall_league_GF")
+    int gf;
+    @JsonProperty("overall_league_GA")
+    int ga;
 
-    public TeamDto(long apiLeagueId, String name, int position, int points) {
-        this.apiLeagueId = apiLeagueId;
-        this.name = name;
-        this.position = position;
-        this.points = points;
-    }
 
     public TeamDto() {
     }
@@ -59,6 +65,54 @@ public class TeamDto {
         this.points = points;
     }
 
+    public int getPlayed() {
+        return played;
+    }
+
+    public void setPlayed(int played) {
+        this.played = played;
+    }
+
+    public int getWon() {
+        return won;
+    }
+
+    public void setWon(int won) {
+        this.won = won;
+    }
+
+    public int getDraw() {
+        return draw;
+    }
+
+    public void setDraw(int draw) {
+        this.draw = draw;
+    }
+
+    public int getLost() {
+        return lost;
+    }
+
+    public void setLost(int lost) {
+        this.lost = lost;
+    }
+
+    public int getGf() {
+        return gf;
+    }
+
+    public void setGf(int gf) {
+        this.gf = gf;
+    }
+
+    public int getGa() {
+        return ga;
+    }
+
+    public void setGa(int ga) {
+        this.ga = ga;
+    }
+
     @Override
     public String toString() {
         return "TeamDto{" +
@@ -66,6 +120,12 @@ public class TeamDto {
                 ", name='" + name + '\'' +
                 ", position=" + position +
                 ", points=" + points +
+                ", played=" + played +
+                ", won=" + won +
+                ", draw=" + draw +
+                ", lost=" + lost +
+                ", gf=" + gf +
+                ", ga=" + ga +
                 '}';
     }
 }

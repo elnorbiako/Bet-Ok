@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>Event</title>
+    <title>Team</title>
     <style>
         * {
             font-size: 12pt;
@@ -42,59 +42,20 @@
     <a th:href="@{/home}">
         <button>Back to homepage.</button>
     </a><br>
+    <a th:href="@{/bets}">
+        <button>My bets.</button>
+    </a><br>
 
 </div>
 
-<div th:align="center">
-<h3 th:text="|Match: |">match</h3>
-<table th:width="400">
-    <tr>
-        <th>Home Team</th>
-        <th>Info</th>
-        <th>Away Team</th>
-    </tr>
-    <tr>
+<br>
 
-        <!--<td th:text="${event.homeTeamName}">Home Team</td>-->
-        <td><a th:href="@{/team(name=${event.homeTeamName})}" th:text="${event.homeTeamName}"></a></td>
-        <td>
-            <p th:text="|${event.date}   ${event.time}|">11</p>
-            <p th:text="|League: ${event.league.getName()}|">League name</p>
-        </td>
-        <!--<td th:text="${event.awayTeamName}">Away</td>-->
-        <td><a th:href="@{/team(name=${event.awayTeamName})}" th:text="${event.awayTeamName}"></a></td>
-    </tr>
-</table>
-</div>
+<h2 th:align="center" th:text=" ${team.name}">Team</h2>
 
-<div align="center">
-    <h3 th:text="|Odds: |">Odds</h3>
-    <table th:width="400">
-        <tr>
-            <th>1</th>
-            <th>X</th>
-            <th>2</th>
-        </tr>
-        <tr>
+<hr>
 
-            <strong>
-                <td th:butt="  ${event.odd_1}  ">0</td>
-            </strong>
-            <strong>
-                <td th:text="  ${event.odd_x} ">0</td>
-            </strong>
-            <strong>
-                <td th:text="  ${event.odd_2}  ">0</td>
-            </strong>
-
-
-        </tr>
-    </table>
-</div>
-
-
-<div align="center">
-    <h3 th:text="|Team vs Team history: |">TvsT</h3>
+<div style="float: left">
+    <h3 th:text="|Last matches at home: |">Home</h3>
     <table>
         <tr>
             <th>Info</th>
@@ -104,13 +65,13 @@
 
 
         </tr>
-        <tr th:each="TvsTDto, iterStat: ${TTs}" th:object="${TvsTDto}">
+        <tr th:each="event, iterStat: ${eventsHome}" th:object="${event}">
             <!--<td th:text="|${iterStat.count}.|">1.</td>-->
             <td>
                 <p th:text="|*{date}   *{time}|">11</p>
                 <!--<p th:text="*{league.getName()}">League name</p>-->
             </td>
-            <td th:text="*{homeTeam}">Home Team</td>
+            <td th:text="*{homeTeamName}">Home Team</td>
             <strong>
                 <td th:text="  *{homeGoals}  ">0</td>
             </strong>
@@ -118,7 +79,39 @@
                 <td th:text="  *{awayGoals}  ">0</td>
             </strong>
 
-            <td th:text="*{awayTeam}">Away</td>
+            <td th:text="*{awayTeamName}">Away</td>
+
+        </tr>
+    </table>
+</div>
+
+
+<div style="float: right">
+    <h3 th:text="|Last matches away: |">Away</h3>
+    <table>
+        <tr>
+            <th>Info</th>
+            <th>Home Team</th>
+            <th colspan="2"> Result</th>
+            <th>Away Team</th>
+
+
+        </tr>
+        <tr th:each="event, iterStat: ${eventsAway}" th:object="${event}">
+            <!--<td th:text="|${iterStat.count}.|">1.</td>-->
+            <td>
+                <p th:text="|*{date}   *{time}|">11</p>
+                <!--<p th:text="*{league.getName()}">League name</p>-->
+            </td>
+            <td th:text="*{homeTeamName}">Home Team</td>
+            <strong>
+                <td th:text="  *{homeGoals}  ">0</td>
+            </strong>
+            <strong>
+                <td th:text="  *{awayGoals}  ">0</td>
+            </strong>
+
+            <td th:text="*{awayTeamName}">Away</td>
 
         </tr>
     </table>

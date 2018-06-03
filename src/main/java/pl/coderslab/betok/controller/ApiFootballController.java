@@ -1,5 +1,6 @@
 package pl.coderslab.betok.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -84,7 +85,9 @@ public class ApiFootballController {
         for (TeamDto team: teams) {
             Team teamEntity = new Team();
             teamEntity.setName(team.getName());
+            BeanUtils.copyProperties(team, teamEntity);
             teamEntity.setLeague(leagueRepository.findById(team.getApiLeagueId()).orElse(null));
+
             teamRepository.save(teamEntity);
         }
         return "redirect:/admin/populate";
@@ -143,5 +146,6 @@ public class ApiFootballController {
 //        }
 //        return "some result - user";
 //    }
+
 
 }

@@ -20,4 +20,8 @@ public interface EventService {
     List<Event> findAllScheduledEvents(String status);
 
     Event findById(long id);
+
+    List<Event> findHomeByTeamName(String name);
+
+    List<Event> findAwayByTeamName(String name);
 }

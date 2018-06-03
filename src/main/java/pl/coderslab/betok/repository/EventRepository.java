@@ -18,4 +18,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
         List<Event> findAllByStatusOrderByDateAsc(String status);
 
+        List<Event> findTop5ByHomeTeamNameOrderByDateDesc(String name);
+
+        List<Event> findTop5ByAwayTeamNameOrderByDateDesc(String name);
+
 }

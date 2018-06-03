@@ -47,7 +47,7 @@
 
 
 <div align="center">
-<h3 th:text="|Upcoming events: |">Transactions</h3>
+<h3 th:text="|Upcoming events: |">Events</h3>
 <table>
     <tr>
         <th>Home Team</th>
@@ -59,12 +59,12 @@
     </tr>
     <tr th:each="event, iterStat: ${events}" th:object="${event}">
         <!--<td th:text="|${iterStat.count}.|">1.</td>-->
-        <td th:text="*{homeTeamName}">Home Team</td>
+        <td><a th:href="@{/team(name=${event.homeTeamName})}" th:text="${event.homeTeamName}"></a></td>
         <td>
             <p th:text="|*{date}   *{time}|">11</p>
             <p th:text="*{league.getName()}">League name</p>
         </td>
-        <td th:text="*{awayTeamName}">Away</td>
+        <td><a th:href="@{/team(name=${event.awayTeamName})}" th:text="${event.awayTeamName}"></a></td>
         <td>
             <button>
                 <a th:href="@{/event(id=${event.id})}">More...</a>

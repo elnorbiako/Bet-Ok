@@ -1,6 +1,7 @@
 package pl.coderslab.betok.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -41,6 +42,13 @@ public class Event {
     private int awayGoals;
 
     private int live;
+
+
+    //odds to be randomized. I've tried to add 'on the fly odds from APIfootball, but due to some problems with that and
+    //lack od time...
+    private BigDecimal odd_1;
+    private BigDecimal odd_x;
+    private BigDecimal odd_2;
 
 
     public Event() {
@@ -141,5 +149,50 @@ public class Event {
 
     public void setAwayTeamName(String awayTeamName) {
         this.awayTeamName = awayTeamName;
+    }
+
+    public BigDecimal getOdd_1() {
+        return odd_1;
+    }
+
+    public void setOdd_1(BigDecimal odd_1) {
+        this.odd_1 = odd_1;
+    }
+
+    public BigDecimal getOdd_x() {
+        return odd_x;
+    }
+
+    public void setOdd_x(BigDecimal odd_x) {
+        this.odd_x = odd_x;
+    }
+
+    public BigDecimal getOdd_2() {
+        return odd_2;
+    }
+
+    public void setOdd_2(BigDecimal odd_2) {
+        this.odd_2 = odd_2;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", date=" + date +
+                ", status='" + status + '\'' +
+                ", time='" + time + '\'' +
+                ", league=" + league +
+                ", homeTeam=" + homeTeam +
+                ", homeTeamName='" + homeTeamName + '\'' +
+                ", awayTeam=" + awayTeam +
+                ", awayTeamName='" + awayTeamName + '\'' +
+                ", homeGoals=" + homeGoals +
+                ", awayGoals=" + awayGoals +
+                ", live=" + live +
+                ", odd_1=" + odd_1 +
+                ", odd_x=" + odd_x +
+                ", odd_2=" + odd_2 +
+                '}';
     }
 }

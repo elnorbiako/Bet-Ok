@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Event;
 import pl.coderslab.betok.repository.EventRepository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
@@ -44,6 +45,10 @@ public class EventServiceImpl implements EventService {
         futureEvent.setAwayTeam(event.getAwayTeam());
         futureEvent.setLeague(event.getLeague());
 
+        futureEvent.setOdd_1(BigDecimal.valueOf((r.nextInt(4)+1) + r.nextDouble()));
+        futureEvent.setOdd_x(BigDecimal.valueOf((r.nextInt(4)+1) + r.nextDouble()));
+        futureEvent.setOdd_2(BigDecimal.valueOf((r.nextInt(4)+1) + r.nextDouble()));
+
         eventRepository.save(futureEvent);
     }
 
@@ -60,5 +65,15 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event findById(long id) {
         return eventRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Event> findHomeByTeamName(String name) {
+        return eventRepository.findTop5ByHomeTeamNameOrderByDateDesc(name);
+    }
+
+    @Override
+    public List<Event> findAwayByTeamName(String name) {
+        return eventRepository.findTop5ByAwayTeamNameOrderByDateDesc(name);
     }
 }

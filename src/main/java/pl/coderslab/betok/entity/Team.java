@@ -18,6 +18,16 @@ public class Team {
     @JoinColumn
     private League league;
 
+    private int position;
+    private int played;
+    private int won;
+    private int draw;
+    private int lost;
+    private int gf;
+    private int ga;
+    private int points;
+
+
     public Team() {
     }
 
@@ -43,5 +53,69 @@ public class Team {
 
     public void setLeague(League league) {
         this.league = league;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPlayed() {
+        return played;
+    }
+
+    public void setPlayed(int played) {
+        this.played = played;
+    }
+
+    public int getWon() {
+        return won;
+    }
+
+    public void setWon(int won) {
+        this.won = won;
+    }
+
+    public int getDraw() {
+        return draw;
+    }
+
+    public void setDraw(int draw) {
+        this.draw = draw;
+    }
+
+    public int getLost() {
+        return lost;
+    }
+
+    public void setLost(int lost) {
+        this.lost = lost;
+    }
+
+    public int getGf() {
+        return gf;
+    }
+
+    public void setGf(int gf) {
+        this.gf = gf;
+    }
+
+    public int getGa() {
+        return ga;
+    }
+
+    public void setGa(int ga) {
+        this.ga = ga;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }
