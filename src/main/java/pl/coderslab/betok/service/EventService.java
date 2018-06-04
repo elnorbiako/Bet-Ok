@@ -31,4 +31,6 @@ public interface EventService {
     List<Event> findHomeByTeamName(String name, String status);
 
     List<Event> findAwayByTeamName(String name, String status);
+
+    void simulateUpcomingEvents();
 }

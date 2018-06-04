@@ -29,7 +29,8 @@ public class EventController {
 
     @Autowired
     public EventController(UserService userService,
-                           EventService eventService, TeamRepository teamRepository) {
+                           EventService eventService,
+                           TeamRepository teamRepository) {
         this.userService = userService;
         this.eventService = eventService;
         this.teamRepository = teamRepository;

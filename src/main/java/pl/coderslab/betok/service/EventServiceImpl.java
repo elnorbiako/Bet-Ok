@@ -1,12 +1,12 @@
 package pl.coderslab.betok.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Event;
 import pl.coderslab.betok.repository.EventRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -15,8 +15,17 @@ import java.util.Random;
 @Service
 public class EventServiceImpl implements EventService {
 
-    @Autowired
-    EventRepository eventRepository;
+
+    private final EventRepository eventRepository;
+
+//    private final EventService eventService;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    public EventServiceImpl(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+        //this.eventService = eventService;
+    }
 
 
     @Override
@@ -117,5 +126,41 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> findAwayByTeamName(String name, String status) {
         return eventRepository.findTop5ByAwayTeamNameAndStatusOrderByDateDesc(name, status);
+    }
+
+    @Override
+    public void simulateUpcomingEvents() {
+
+        Random r = new Random();
+
+        List<Event> events = findAllScheduledEvents("SCHEDULED");
+
+        for (Event event : events) {
+
+            if (event.getStatus().equals("SCHEDULED")) {
+
+                LocalDateTime eventDate = LocalDateTime.parse(event.getDate() + " " + event.getTime(), formatter);
+
+                if (eventDate.isBefore(LocalDateTime.now())) {
+
+                    event.setStatus("FT");
+                    event.setHomeGoals(r.nextInt(6));
+                    event.setAwayGoals(r.nextInt(6));
+
+                    if (event.getHomeGoals() > event.getAwayGoals()) {
+                        event.setResult("1");
+                    } else if (event.getHomeGoals() < event.getAwayGoals()) {
+                        event.setResult("2");
+                    } else if (event.getHomeGoals() == event.getAwayGoals()) {
+                        event.setResult("X");
+                    }
+
+                    eventRepository.save(event);
+
+                }
+            }
+
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 package pl.coderslab.betok.service;
 
 
+import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.betok.entity.Account;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.TransactionType;
@@ -18,4 +19,7 @@ public interface TransactionService {
 
     void saveCashInTransaction(BigDecimal amount, Account account);
     void saveCashOutTransaction(BigDecimal amount, Account account);
+
+    @Transactional
+    void savePlaceBetTransaction(BigDecimal amount, Account account);
 }

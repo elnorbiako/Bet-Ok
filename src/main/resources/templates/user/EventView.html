@@ -78,13 +78,25 @@
         <tr>
 
             <strong>
-                <td th:align="center" th:text="  ${event.odd_1}  ">0</td>
+                <td>
+                    <button>
+                        <a th:href="@{/bet/{id}/{odd} (id=${event.id}, odd=1)}" th:text="  ${event.odd_1}  ">"${event.odd_1}"</a>
+                    </button>
+                </td>
             </strong>
             <strong>
-                <td th:align="center" th:text="  ${event.odd_x} ">0</td>
+                <td>
+                    <button>
+                        <a th:href="@{/bet/{id}/{odd} (id=${event.id}, odd=X)}" th:text="  ${event.odd_x}  ">"${event.odd_x}"</a>
+                    </button>
+                </td>
             </strong>
             <strong>
-                <td th:align="center" th:text="  ${event.odd_2}  ">0</td>
+                <td>
+                    <button>
+                        <a th:href="@{/bet/{id}/{odd} (id=${event.id}, odd=2)}" th:text="  ${event.odd_2}  ">"${event.odd_2}"</a>
+                    </button>
+                </td>
             </strong>
 
 

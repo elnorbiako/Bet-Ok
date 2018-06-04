@@ -35,6 +35,8 @@ public class User {
 
     private boolean enabled;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Bet> bets;
 
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -149,5 +151,13 @@ public class User {
 
     public void setFavorites(List<Team> favorites) {
         this.favorites = favorites;
+    }
+
+    public List<Bet> getBets() {
+        return bets;
+    }
+
+    public void setBets(List<Bet> bets) {
+        this.bets = bets;
     }
 }
