@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Users</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: gainsboro;
+            color: brown;
+        }
+
+        td {
+            background: gainsboro;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+<div style="float: right;">
+
+    <p sec:authorize="isAuthenticated()">
+    <p>Logged as: <span sec:authentication="name"></span></p>
+    <p sec:authorize-url="/admin/">Roles: <span sec:authentication="authorities"></span></p>
+    <p>Account balance: <span th:text="|*{user.account.getCash()} credits|">69></span></p>
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+
+
+</div>
+
+<div align="left"><a th:href="@{/home}">
+    <button>Back to homepage.</button>
+</a><br>
+</div>
+
+
+<div align="center">
+    <h3 th:text="|Active bets: |">Bets</h3>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Created</th>
+            <th>Event</th>
+            <th>Event Date</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>To win</th>
+
+
+        </tr>
+        <tr th:each="bet, iterStat: ${activeBets}" th:object="${bet}">
+
+            <td th:text="|${iterStat.count}.|">1.</td>
+
+            <td th:text="*{created}">Date</td>
+
+            <td th:text="|*{event.getHomeTeamName()}  vs  *{event.getAwayTeamName()}">Teams</td>
+
+            <td th:text="|*{event.getDate()}  *{event.getTime()}">Date</td>
+
+            <td th:text="  *{odd}  ">0</td>
+
+            <td th:text="  *{amount}  ">0</td>
+
+            <td>
+                <div th:with="result=${bet.rate * bet.amount}">
+                    <span th:text="${result}"></span>
+               </div>
+            </td>
+            <!--<td th:text="(*{amount}**{rate})">Away</td>-->
+
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

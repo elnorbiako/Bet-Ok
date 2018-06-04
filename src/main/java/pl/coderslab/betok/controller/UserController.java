@@ -143,18 +143,6 @@ public class UserController {
         return "user/LastMatchesView";
     }
 
-    @GetMapping("/user/bets")
-    public String betsView(Model model, Authentication authentication) {
-        User user = userService.getLoggedUser(authentication);
-        model.addAttribute(user);
 
-        List<Bet> activeBets = betService.findByActiveAndUserId(1, user.getId());
-        model.addAttribute("activeBets", activeBets);
-
-        List<Bet> inactiveBets = betService.findByActiveAndUserId(0, user.getId());
-        model.addAttribute("inactiveBets", inactiveBets);
-
-        return "user/BetsView";
-    }
 
 }

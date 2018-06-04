@@ -14,6 +14,7 @@ import pl.coderslab.betok.service.UserService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class BetController {
@@ -72,24 +73,47 @@ public class BetController {
         if (BigDecimal.valueOf(amount).compareTo(balance)>0) {
             model.addAttribute("message", "Not enough credits on account.");
         }
-        else {
-            Bet bet = new Bet();
-            bet.setActive(1);
-            bet.setEvent(event);
-            bet.setOdd(odd);
-            bet.setRate(BigDecimal.valueOf(rate));
-            bet.setAmount(BigDecimal.valueOf(amount));
-            bet.setCreated(LocalDateTime.now());
-            bet.setUser(user);
-            bet.setResult("0");
 
-            betService.saveBet(bet);
-            model.addAttribute("message", "Bet complete. Good luck!");
+        else {
+
+            if (event.getStatus().equals("SCHEDULED")) {
+
+                Bet bet = new Bet();
+                bet.setActive(1);
+                bet.setEvent(event);
+                bet.setOdd(odd);
+                bet.setRate(BigDecimal.valueOf(rate));
+                bet.setAmount(BigDecimal.valueOf(amount));
+                bet.setCreated(LocalDateTime.now());
+                bet.setUser(user);
+                bet.setResult("0");
+
+                betService.saveBet(bet);
+                model.addAttribute("message", "Bet complete. Good luck!");
+
+            } else {
+
+                model.addAttribute("message", "Too late, event inactive");
+            }
         }
 
 
 
         return "/user/BetConfirm";
+    }
+
+    @GetMapping("/user/bets")
+    public String betsView(Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        model.addAttribute(user);
+
+        List<Bet> activeBets = betService.findByActiveAndUserId(1, user.getId());
+        model.addAttribute("activeBets", activeBets);
+
+        List<Bet> inactiveBets = betService.findByActiveAndUserId(0, user.getId());
+        model.addAttribute("inactiveBets", inactiveBets);
+
+        return "user/BetsView";
     }
 
 
