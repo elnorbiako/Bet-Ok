@@ -2,6 +2,7 @@ package pl.coderslab.betok.service;
 
 import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Bet;
+import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.repository.BetRepository;
 
 import java.util.List;
@@ -11,9 +12,11 @@ public class BetServiceImpl implements BetService {
 
 
     private final BetRepository betRepository;
+    private final TransactionService transactionService;
 
-    public BetServiceImpl(BetRepository betRepository) {
+    public BetServiceImpl(BetRepository betRepository, TransactionService transactionService) {
         this.betRepository = betRepository;
+        this.transactionService = transactionService;
     }
 
     @Override
@@ -22,8 +25,8 @@ public class BetServiceImpl implements BetService {
     }
 
     @Override
-    public List<Bet> findByActive(int active) {
-        return betRepository.findByActive(active);
+    public List<Bet> findByActiveAndUserId(int active, long id) {
+        return betRepository.findByActiveAndUserId(active, id);
     }
 
     @Override
@@ -34,7 +37,8 @@ public class BetServiceImpl implements BetService {
     @Override
     public void saveBet(Bet bet) {
 
-        // all logic with that
+        transactionService.savePlaceBetTransaction(bet.getAmount(), bet.getUser().getAccount());
+
         betRepository.save(bet);
 
     }

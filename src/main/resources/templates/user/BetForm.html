@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
+    <!-- Page title -->
+    <title> Register</title>
+</head>
+<body>
+
+<p th:text="${message}"/>
+<p th:text="| Event: ${event.homeTeamName}  vs.  ${event.awayTeamName} |"/>
+<p th:text="| Your bet: ${odd} |"/>
+<p th:text="| Rate: ${rate} |"/>
+
+
+<form th:action="@{/user/bet/{id}/{odd} (id=${event.id}, odd= ${odd})}" method="post">
+
+    <label>Amount of credits to bet: </label> <input type="number" name="amount"/>
+    <input id="rate" name="rate" type="hidden" th:value="${rate}">
+    <!--<input th:name="rate" th:field="${rate}" type="hidden"/>-->
+    <input type="submit" value="PLACE BET!"/>
+
+</form>
+
+<a th:href="@{/home}">Back to main page.</a>
+</body>
+</html>

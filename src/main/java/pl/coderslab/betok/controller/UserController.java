@@ -5,14 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.betok.entity.Account;
-import pl.coderslab.betok.entity.Event;
-import pl.coderslab.betok.entity.Team;
-import pl.coderslab.betok.entity.User;
-import pl.coderslab.betok.service.EventService;
-import pl.coderslab.betok.service.TeamService;
-import pl.coderslab.betok.service.TransactionService;
-import pl.coderslab.betok.service.UserService;
+import pl.coderslab.betok.entity.*;
+import pl.coderslab.betok.service.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,15 +18,17 @@ public class UserController {
     private final TransactionService transactionService;
     private final TeamService teamService;
     private final EventService eventService;
+    private final BetService betService;
 
 
     @Autowired
     public UserController(UserService userService,
-                          TransactionService transactionService, TeamService teamService, EventService eventService) {
+                          TransactionService transactionService, TeamService teamService, EventService eventService, BetService betService) {
         this.userService = userService;
         this.transactionService = transactionService;
         this.teamService = teamService;
         this.eventService = eventService;
+        this.betService = betService;
     }
 
 
@@ -147,6 +143,18 @@ public class UserController {
         return "user/LastMatchesView";
     }
 
+    @GetMapping("/user/bets")
+    public String betsView(Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        model.addAttribute(user);
 
+        List<Bet> activeBets = betService.findByActiveAndUserId(1, user.getId());
+        model.addAttribute("activeBets", activeBets);
+
+        List<Bet> inactiveBets = betService.findByActiveAndUserId(0, user.getId());
+        model.addAttribute("inactiveBets", inactiveBets);
+
+        return "user/BetsView";
+    }
 
 }

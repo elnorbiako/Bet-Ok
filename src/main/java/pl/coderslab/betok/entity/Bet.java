@@ -103,4 +103,12 @@ public class Bet {
     public void setActive(int active) {
         this.active = active;
     }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 }

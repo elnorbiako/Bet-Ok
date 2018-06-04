@@ -7,14 +7,17 @@
         * {
             font-size: 12pt;
         }
+
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
         }
+
         th {
             background: gainsboro;
             color: brown;
         }
+
         td {
             background: gainsboro;
             padding: 12px;
@@ -35,45 +38,60 @@
     </form>
 
     <p sec:authorize-url="/admin/">
-        <a th:href="@{/admin/panel}"><button>Admin page</button></a><br>
+        <a th:href="@{/admin/panel}">
+            <button>Admin page</button>
+        </a><br>
     </p>
 </div>
 
 <div align="left">
-<a th:href="@{/user/cashIn}"><button>Add some cash</button></a><br>
-<a th:href="@{/user/cashOut}"><button>Cash Out!</button></a><br>
-<a th:href="@{/user/transactions}"><button>My transactions</button></a><br>
-<a th:href="@{/user/favorites}"><button>Favorite teams</button></a><br>
-<a th:href="@{/user/lastEvents}"><button>Last events</button></a><br>
+    <a th:href="@{/user/cashIn}">
+        <button>Add some cash</button>
+    </a><br>
+    <a th:href="@{/user/cashOut}">
+        <button>Cash Out!</button>
+    </a><br>
+    <a th:href="@{/user/transactions}">
+        <button>My transactions</button>
+    </a><br>
+    <a th:href="@{/user/favorites}">
+        <button>Favorite teams</button>
+    </a><br>
+    <a th:href="@{/user/lastEvents}">
+        <button>Last events</button>
+    </a><br>
+    <a th:href="@{/user/bets}">
+        <button>My bets.</button>
+    </a><br>
 </div>
 
 
 <div align="center">
-<h3 th:text="|Upcoming events: |">Events</h3>
-<table>
-    <tr>
-        <th>Home Team</th>
-        <th>Info</th>
-        <th>Away Team</th>
-        <th>Make Bet!</th>
+    <h3 th:text="|Upcoming events: |">Events</h3>
+    <table>
+        <tr>
+            <th>Home Team</th>
+            <th>Info</th>
+            <th>Away Team</th>
+            <th>Make Bet!</th>
 
 
-    </tr>
-    <tr th:each="event, iterStat: ${events}" th:object="${event}">
-        <!--<td th:text="|${iterStat.count}.|">1.</td>-->
-        <td><a th:href="@{/team(name=${event.homeTeamName})}" th:text="${event.homeTeamName}"></a></td>
-        <td>
-            <p th:text="|*{date}   *{time}|">11</p>
-            <p th:text="*{league.getName()}">League name</p>
-        </td>
-        <td><a th:href="@{/team(name=${event.awayTeamName})}" th:text="${event.awayTeamName}"></a></td>
-        <td>
-            <button>
-                <a th:href="@{/event(id=${event.id})}">More...</a>
-            </button>
-        </td>
-    </tr>
-</table>
+        </tr>
+        <tr th:each="event, iterStat: ${events}" th:object="${event}">
+            <!--<td th:text="|${iterStat.count}.|">1.</td>-->
+            <td><a th:href="@{/team(name=${event.homeTeamName})}" th:text="${event.homeTeamName}"></a></td>
+            <td>
+                <p th:text="|*{date}   *{time}|">11</p>
+                <p th:text="*{league.getName()}">League name</p>
+            </td>
+            <td><a th:href="@{/team(name=${event.awayTeamName})}" th:text="${event.awayTeamName}"></a></td>
+            <td>
+                <button>
+                    <a th:href="@{/event(id=${event.id})}">More...</a>
+                </button>
+            </td>
+        </tr>
+    </table>
 </div>
 
 </body>

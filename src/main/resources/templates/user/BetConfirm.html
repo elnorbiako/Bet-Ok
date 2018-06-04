@@ -3,19 +3,11 @@
 <head>
     <!--<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
     <!-- Page title -->
-    <title> Register</title>
+    <title> Bet Confirm</title>
 </head>
 <body>
 
 <p th:text="${message}"/>
-
-<form th:action="@{/user/cashOut}" method="post">
-
-        <label>Amount of credits to transfer: </label> <input type="number" name="amount"/>
-
-            <input type="submit" value="Transfer money"/>
-
-</form>
 
 <a th:href="@{/home}">Back to main page.</a>
 </body>
