@@ -6,15 +6,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.betok.entity.Account;
+import pl.coderslab.betok.entity.Event;
 import pl.coderslab.betok.entity.Team;
 import pl.coderslab.betok.entity.User;
+import pl.coderslab.betok.service.EventService;
 import pl.coderslab.betok.service.TeamService;
 import pl.coderslab.betok.service.TransactionService;
 import pl.coderslab.betok.service.UserService;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class UserController {
@@ -22,14 +23,16 @@ public class UserController {
     private final UserService userService;
     private final TransactionService transactionService;
     private final TeamService teamService;
+    private final EventService eventService;
 
 
     @Autowired
     public UserController(UserService userService,
-                          TransactionService transactionService, TeamService teamService) {
+                          TransactionService transactionService, TeamService teamService, EventService eventService) {
         this.userService = userService;
         this.transactionService = transactionService;
         this.teamService = teamService;
+        this.eventService = eventService;
     }
 
 
@@ -86,10 +89,12 @@ public class UserController {
         return "user/UserTransactionsView";
     }
 
+
+
     @GetMapping("user/favorites")
     public String favoritesView(Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
-        Set<Team> favorites = user.getFavorites();
+        List<Team> favorites = user.getFavorites();
 
         model.addAttribute("favorites", favorites);
         model.addAttribute("user", user);
@@ -102,7 +107,7 @@ public class UserController {
         User user = userService.getLoggedUser(authentication);
         Team team = teamService.findByName(name);
 
-        Set<Team> favorites = user.getFavorites();
+        List<Team> favorites = user.getFavorites();
         favorites.add(team);
         user.setFavorites(favorites);
 
@@ -119,7 +124,7 @@ public class UserController {
         User user = userService.getLoggedUser(authentication);
         Team team = teamService.findByName(name);
 
-        Set<Team> favorites = user.getFavorites();
+        List<Team> favorites = user.getFavorites();
         favorites.remove(team);
         user.setFavorites(favorites);
 
@@ -129,6 +134,17 @@ public class UserController {
         model.addAttribute("user", user);
 
         return "user/FavoritesView";
+    }
+
+
+    @GetMapping("/user/lastEvents")
+    public String lastEvents(Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        model.addAttribute(user);
+
+        List<Event> events = eventService.find10LastEvents("FT");
+        model.addAttribute("events", events);
+        return "user/LastMatchesView";
     }
 
 

@@ -19,44 +19,53 @@ import java.util.Random;
 public class ScheduledTasks {
 
 
-        @Autowired
-        private UserService userService;
+    @Autowired
+    private UserService userService;
 
-        @Autowired
-        private EventService eventService;
+    @Autowired
+    private EventService eventService;
 
-        @Autowired
-        private EventRepository eventRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
-       // @Scheduled(cron = "0 0/15 * 1/1 * ?")
-        @Scheduled(fixedRate = 60000)
-        public void simulateUpcomingEvents() {
+    // @Scheduled(cron = "0 0/15 * 1/1 * ?")
+    @Scheduled(fixedRate = 60000)
+    public void simulateUpcomingEvents() {
 
-            Random r = new Random();
+        Random r = new Random();
 
-            List<Event> events = eventService.findAllScheduledEvents("SCHEDULED");
+        List<Event> events = eventService.findAllScheduledEvents("SCHEDULED");
 
-            for ( Event event: events) {
+        for (Event event : events) {
 
-                if (event.getStatus().equals("SCHEDULED")) {
+            if (event.getStatus().equals("SCHEDULED")) {
 
-                    LocalDateTime eventDate = LocalDateTime.parse(event.getDate() + " " + event.getTime(), formatter);
+                LocalDateTime eventDate = LocalDateTime.parse(event.getDate() + " " + event.getTime(), formatter);
 
-                    if (eventDate.isBefore(LocalDateTime.now())) {
-                        event.setStatus("FT");
-                        event.setHomeGoals(r.nextInt(6));
-                        event.setAwayGoals(r.nextInt(6));
+                if (eventDate.isBefore(LocalDateTime.now())) {
 
-                        eventRepository.save(event);
+                    event.setStatus("FT");
+                    event.setHomeGoals(r.nextInt(6));
+                    event.setAwayGoals(r.nextInt(6));
 
+                    if (event.getHomeGoals() > event.getAwayGoals()) {
+                        event.setResult("1");
+                    } else if (event.getHomeGoals() < event.getAwayGoals()) {
+                        event.setResult("2");
+                    } else if (event.getHomeGoals() == event.getAwayGoals()) {
+                        event.setResult("X");
                     }
-                }
 
+                    eventRepository.save(event);
+
+                }
             }
 
-          //  System.out.println("Yes, I'm simualting!");
+        }
+
+        //  System.out.println("Yes, I'm simualting!");
     }
 }

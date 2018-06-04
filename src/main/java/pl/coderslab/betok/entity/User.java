@@ -4,7 +4,6 @@ package pl.coderslab.betok.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -54,8 +53,8 @@ public class User {
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    private Set<Project> projects;
 //
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Team> favorites;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Team> favorites;
 
 
 
@@ -144,11 +143,11 @@ public class User {
         this.email = email;
     }
 
-    public Set<Team> getFavorites() {
+    public List<Team> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(Set<Team> favorites) {
+    public void setFavorites(List<Team> favorites) {
         this.favorites = favorites;
     }
 }

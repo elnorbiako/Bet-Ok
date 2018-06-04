@@ -69,9 +69,9 @@
             <td>
                 <p th:text="*{league.getName()}">League name</p>
             </td>
-            <td><a th:href="@{/team(name=${team.name})}" th:text="|Scheduled events|"></a></td>
+            <td><a th:href="@{/team(name=${team.name})}" th:text="|Events & Standings|"></a></td>
             <td>
-                <a th:href="@{/user/remFromFav(name=${team.name})}"></a>
+                <a th:href="@{/user/remFromFav(name=${team.name})}"><button>Remove from fav</button></a>
 
             </td>
         </tr>

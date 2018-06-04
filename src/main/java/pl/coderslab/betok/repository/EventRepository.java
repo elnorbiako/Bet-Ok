@@ -16,10 +16,17 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
         List<Event> findTop10ByStatusOrderByDateAsc(String status);
 
+        List<Event> findTop10ByStatusOrderByDateDesc(String status);
+
+
+
+        List<Event> findTop3ByStatusAndHomeTeamNameOrAwayTeamNameOrderByDate(String status, String homeTeamName, String awayTeamName);
+
+
         List<Event> findAllByStatusOrderByDateAsc(String status);
 
-        List<Event> findTop5ByHomeTeamNameOrderByDateDesc(String name);
+        List<Event> findTop5ByHomeTeamNameAndStatusOrderByDateDesc(String name, String status);
 
-        List<Event> findTop5ByAwayTeamNameOrderByDateDesc(String name);
+        List<Event> findTop5ByAwayTeamNameAndStatusOrderByDateDesc(String name, String status);
 
 }

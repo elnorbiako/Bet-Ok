@@ -19,4 +19,13 @@ public class FutureController {
         return "redirect:/admin/panel";
 
     }
+
+    @GetMapping("/admin/futureShort")
+    public String generateFutureEventShort() {
+
+        eventService.generateFutureEventShort();
+
+        return "redirect:/admin/panel";
+
+    }
 }

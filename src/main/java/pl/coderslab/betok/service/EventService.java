@@ -15,13 +15,20 @@ public interface EventService {
 
     void generateFutureEvent();
 
+    void generateFutureEventShort();
+
     List<Event> find10UpcomingEvents(String status);
+
+     List<Event> find10LastEvents(String status);
+
+    List<Event> find3UpcomingEventsForTeam(String status, String teamName1, String teamName2);
+
 
     List<Event> findAllScheduledEvents(String status);
 
     Event findById(long id);
 
-    List<Event> findHomeByTeamName(String name);
+    List<Event> findHomeByTeamName(String name, String status);
 
-    List<Event> findAwayByTeamName(String name);
+    List<Event> findAwayByTeamName(String name, String status);
 }

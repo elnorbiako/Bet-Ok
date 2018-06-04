@@ -3,7 +3,6 @@ package pl.coderslab.betok.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 
 @Entity
@@ -49,6 +48,10 @@ public class Event {
     private BigDecimal odd_1;
     private BigDecimal odd_x;
     private BigDecimal odd_2;
+
+    //Set when event is finished. Possible: 1, X, 2. Algorithm checks goal count and determines result. Bet entity
+    //will check for this info
+    private String result;
 
 
     public Event() {
@@ -173,6 +176,14 @@ public class Event {
 
     public void setOdd_2(BigDecimal odd_2) {
         this.odd_2 = odd_2;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     @Override

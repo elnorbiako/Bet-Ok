@@ -60,12 +60,14 @@ public class EventController {
         Team team = teamRepository.findByName(name);
         model.addAttribute("team", team);
 
-        List<Event> eventsHome = eventService.findHomeByTeamName(name);
+//        List<Event> events = eventService.find3UpcomingEventsForTeam( "SCHEDULED", name, name);
+//        model.addAttribute("events", events);
+
+        List<Event> eventsHome = eventService.findHomeByTeamName(name, "FT");
         model.addAttribute("eventsHome", eventsHome);
 
-        System.out.println(eventsHome.get(1).toString());
 
-        List<Event> eventsAway = eventService.findAwayByTeamName(name);
+        List<Event> eventsAway = eventService.findAwayByTeamName(name, "FT");
         model.addAttribute("eventsAway", eventsAway);
         return "user/TeamView";
     }

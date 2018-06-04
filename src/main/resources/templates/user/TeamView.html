@@ -69,9 +69,36 @@
     <p th:text="|GF: ${team.gf}|"></p>
     <p th:text="|GA: ${team.ga}|"></p>
 
-
-
 </div>
+
+
+<!--<div align="center">-->
+    <!--<h3 th:text="|Upcoming events: |">Events</h3>-->
+    <!--<table>-->
+        <!--<tr>-->
+            <!--<th>Home Team</th>-->
+            <!--<th>Info</th>-->
+            <!--<th>Away Team</th>-->
+            <!--<th>Make Bet!</th>-->
+
+
+        <!--</tr>-->
+        <!--<tr th:each="event, iterStat: ${events}" th:object="${event}">-->
+            <!--&lt;!&ndash;<td th:text="|${iterStat.count}.|">1.</td>&ndash;&gt;-->
+            <!--<td><a th:href="@{/team(name=${event.homeTeamName})}" th:text="${event.homeTeamName}"></a></td>-->
+            <!--<td>-->
+                <!--<p th:text="|*{date}   *{time}|">11</p>-->
+                <!--<p th:text="*{league.getName()}">League name</p>-->
+            <!--</td>-->
+            <!--<td><a th:href="@{/team(name=${event.awayTeamName})}" th:text="${event.awayTeamName}"></a></td>-->
+            <!--<td>-->
+                <!--<button>-->
+                    <!--<a th:href="@{/event(id=${event.id})}">More...</a>-->
+                <!--</button>-->
+            <!--</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+<!--</div>-->
 
 <div style="float: left" th:width="400">
     <h3 th:text="|Last matches at home: |">Home</h3>
