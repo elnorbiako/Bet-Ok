@@ -54,8 +54,9 @@
             <th>Created</th>
             <th>Event</th>
             <th>Event Date</th>
+            <th>Your Type</th>
+            <th>Rate</th>
             <th>Amount</th>
-            <th>Type</th>
             <th>To win</th>
 
 
@@ -72,6 +73,8 @@
 
             <td th:text="  *{odd}  ">0</td>
 
+            <td th:text="  *{rate}  ">0</td>
+
             <td th:text="  *{amount}  ">0</td>
 
             <td>
@@ -79,6 +82,54 @@
                     <span th:text="${result}"></span>
                </div>
             </td>
+            <!--<td th:text="(*{amount}**{rate})">Away</td>-->
+
+        </tr>
+    </table>
+</div>
+<br>
+<div align="center">
+    <h3 th:text="|Past bets: |">Inactive Bets</h3>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Created</th>
+            <th>Event</th>
+            <th>Event Result</th>
+            <th>Event Date</th>
+            <th>Your Type</th>
+            <th>Rate</th>
+            <th>Amount</th>
+            <th>To win</th>
+            <th>Bet result</th>
+
+
+        </tr>
+        <tr th:each="bet, iterStat: ${inactiveBets}" th:object="${bet}">
+
+            <td th:text="|${iterStat.count}.|">1.</td>
+
+            <td th:text="*{created}">Date</td>
+
+            <td th:text="|*{event.getHomeTeamName()}  vs  *{event.getAwayTeamName()}">Teams</td>
+
+            <td th:text="|*{event.getHomeGoals()} : *{event.getAwayGoals()}">Goals</td>
+
+            <td th:text="|*{event.getDate()}  *{event.getTime()}">Date</td>
+
+            <td th:text="  *{odd}  ">0</td>
+
+            <td th:text="  *{rate}  ">0</td>
+
+            <td th:text="  *{amount}  ">0</td>
+
+            <td>
+                <div th:with="result=${bet.rate * bet.amount}">
+                    <span th:text="${result}"></span>
+                </div>
+            </td>
+
+            <td th:text="  *{result}  "><strong>result</strong></td>
             <!--<td th:text="(*{amount}**{rate})">Away</td>-->
 
         </tr>
