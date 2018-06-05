@@ -7,17 +7,30 @@
 <head>
 
     <title>Login View</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+
+    </style>
 
 </head>
 
 <body>
+<div style="float: right;">
+    <img th:src="@{/560.jpg}"/>
+</div>
 
+<div style="float: left;">
 <span sec:authorize="!isAuthenticated()">
 
-        Please <a th:href="@{/login}">login</a>.
 
 
-        Or add a new <a th:href="@{/register}">user</a>.
+
+        Please login: <a th:href="@{/login}"><button>Login</button></a><br><br>
+
+
+        Or add a new user: <a th:href="@{/register}"><button>Add user</button></a>
 
 
     <!--<form th:action="@{/addUser}" method="POST">-->
@@ -26,7 +39,7 @@
 
     </span>
 
-
+</div>
 </body>
 
 </html>

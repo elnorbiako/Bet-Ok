@@ -90,4 +90,19 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(transactionDb);
         accountRepository.save(account);
     }
+
+    @Transactional
+    @Override
+    public void saveBetWinTransaction(BigDecimal amount, Account account) {
+        Transaction transactionDb = new Transaction();
+        transactionDb.setCreated(LocalDateTime.now());
+        transactionDb.setAmount(amount);
+        transactionDb.setTransactionType(transactionTypeRepository.findByName("BetWon"));
+        transactionDb.setAccount(account);
+        BigDecimal current = account.getCash();
+        current = current.add(amount);
+        account.setCash(current);
+        transactionRepository.save(transactionDb);
+        accountRepository.save(account);
+    }
 }

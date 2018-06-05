@@ -29,7 +29,6 @@
 
     <p sec:authorize="isAuthenticated()">
     <p>Logged as: <span sec:authentication="name"></span></p>
-    <p sec:authorize-url="/admin/">Roles: <span sec:authentication="authorities"></span></p>
     <p>Account balance: <span th:text="|*{user.account.getCash()} credits|">69></span></p>
     </p>
 
@@ -40,9 +39,20 @@
 
 </div>
 
-<div align="left"><a th:href="@{/home}">
-    <button>Back to homepage.</button>
-</a><br>
+<div align="left">
+    <a th:href="@{/home}">
+        <button>Back to homepage.</button>
+    </a><br>
+
+    <a th:href="@{/user/transactions}">
+        <button>My transactions</button>
+    </a><br>
+    <a th:href="@{/user/favorites}">
+        <button>Favorite teams</button>
+    </a><br>
+    <a th:href="@{/user/lastEvents}">
+        <button>Last events</button>
+    </a><br>
 </div>
 
 
@@ -80,15 +90,15 @@
             <td>
                 <div th:with="result=${bet.rate * bet.amount}">
                     <span th:text="${result}"></span>
-               </div>
+                </div>
             </td>
             <!--<td th:text="(*{amount}**{rate})">Away</td>-->
 
         </tr>
     </table>
-</div>
-<br>
-<div align="center">
+
+    <br>
+
     <h3 th:text="|Past bets: |">Inactive Bets</h3>
     <table>
         <tr>
@@ -130,8 +140,8 @@
             </td>
 
             <td th:text="  *{result}  "><strong>result</strong></td>
-            <!--<td th:text="(*{amount}**{rate})">Away</td>-->
-
+            <td th:if="${result.euals('W')}" th:text="'WON'"></td>
+            <td th:if="${result.euals('L')}" th:text="'LOST'"></td>
         </tr>
     </table>
 </div>

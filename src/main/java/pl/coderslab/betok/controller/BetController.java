@@ -70,7 +70,10 @@ public class BetController {
 
         BigDecimal balance = user.getAccount().getCash();
 
-        if (BigDecimal.valueOf(amount).compareTo(balance)>0) {
+        if ( !(amount>0) ) {
+            model.addAttribute("message", "Error: incorrect amount.");
+        }
+        else if (BigDecimal.valueOf(amount).compareTo(balance)>0) {
             model.addAttribute("message", "Not enough credits on account.");
         }
 

@@ -104,6 +104,11 @@ public class UserController {
         Team team = teamService.findByName(name);
 
         List<Team> favorites = user.getFavorites();
+
+        if(favorites.contains(team)) {
+            return "redirect:/user/favorites";
+        }
+
         favorites.add(team);
         user.setFavorites(favorites);
 

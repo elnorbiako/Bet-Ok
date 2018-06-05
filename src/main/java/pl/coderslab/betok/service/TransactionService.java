@@ -22,4 +22,7 @@ public interface TransactionService {
 
     @Transactional
     void savePlaceBetTransaction(BigDecimal amount, Account account);
+
+    @Transactional
+    void saveBetWinTransaction(BigDecimal amount, Account account);
 }
