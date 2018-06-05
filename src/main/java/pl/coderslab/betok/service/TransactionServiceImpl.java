@@ -105,4 +105,9 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(transactionDb);
         accountRepository.save(account);
     }
+
+    @Override
+    public List<Transaction> findAllOrderByCreatedDesc() {
+        return transactionRepository.findAllByOrderByCreatedDesc();
+    }
 }

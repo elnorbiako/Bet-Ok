@@ -16,6 +16,7 @@ public interface TransactionService {
     Transaction findById(long id);
 
     List<Transaction> findTop50ByOrderByCreatedDesc();
+    List<Transaction> findAllOrderByCreatedDesc();
 
     void saveCashInTransaction(BigDecimal amount, Account account);
     void saveCashOutTransaction(BigDecimal amount, Account account);
