@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.betok.entity.*;
 import pl.coderslab.betok.service.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -148,6 +150,28 @@ public class UserController {
         return "user/LastMatchesView";
     }
 
+    @GetMapping("/user/edit")
+    public String userEdit(Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        model.addAttribute(user);
+
+        return "user/UserEditForm";
+    }
+
+    @PostMapping("/user/edit")
+    public String userEdit(@ModelAttribute User user, BindingResult result, Authentication authentication) {
+        if (result.hasErrors()) {
+            return "user/UserEditForm";
+        }
+        User userDb = userService.getLoggedUser(authentication);
+        userDb.setFirstName(user.getFirstName());
+        userDb.setLastName(user.getLastName());
+        userDb.setEmail(user.getEmail());
+
+        userService.updateUser(userDb);
+
+        return "redirect:/home";
+    }
 
 
 }
