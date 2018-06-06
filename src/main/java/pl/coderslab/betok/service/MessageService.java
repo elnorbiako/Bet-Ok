@@ -14,4 +14,7 @@ public interface MessageService {
 
     Message findById(long id);
 
+    void sendMessage(Message message);
+
+    void receiveMessage(Message message);
 }
