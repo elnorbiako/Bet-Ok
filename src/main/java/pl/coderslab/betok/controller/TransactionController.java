@@ -6,14 +6,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.betok.entity.Transaction;
+import pl.coderslab.betok.entity.User;
 import pl.coderslab.betok.service.TransactionService;
 
+
+/**
+ * Controller responsible for web requests regarding Transactions {@link Transaction}.
+ */
 @Controller
 public class TransactionController {
 
     @Autowired
     TransactionService transactionService;
 
+
+    /**
+     * GET listing a single transaction with detailed info
+     * @param id required for single bet
+     *
+     */
     @GetMapping("/transaction")
     public String transctionDetail(@RequestParam(value = "id", required = true) long id, Model model) {
 

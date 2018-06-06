@@ -13,6 +13,12 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
+
+/**
+ * This is controller responsible for handling /user web requests. Its allowed for users {@link User} with
+ * both ROLE_USER and ROLE_ADMIN role {@link pl.coderslab.betok.entity.Role}. It handles most operations user can
+ * request in the system.
+ */
 @Controller
 public class UserController {
 
@@ -33,6 +39,13 @@ public class UserController {
         this.betService = betService;
     }
 
+    /**
+     * GET method for CashIn operation. Curretly not used - its a base for CashIN using POST method, along with
+     * planned functionality ov validating CreditCard.
+     *
+     * @param authentication used for determining currently loggedIn user
+     * @return
+     */
 
     @GetMapping("/user/cashIn")
     public String cashIn(Model model, Authentication authentication) {
@@ -44,14 +57,31 @@ public class UserController {
         return "user/CashInForm";
     }
 
+    /**
+     * GET method for buying credits using PathVariable. In later versions will be changed to POST method with
+     * Credit Card validation and possible financial/wire transfer API
+     * @param amount Amount of cash user want to add to his account
+     * @param authentication used for determining currently loggedIn user
+     * @return saves CashIn transaction (along with confirmation message)
+     */
     @GetMapping("/user/cashIn/{amount}")
-    public String cashIn(@PathVariable double amount, Authentication authentication) {
+    public String cashIn(@PathVariable double amount, Authentication authentication, Model model) {
         User user = userService.getLoggedUser(authentication);
-        transactionService.saveCashInTransaction(BigDecimal.valueOf(amount), user.getAccount(), user);
-        return "redirect:/home";
+
+        if (!(amount > 0)) {
+            model.addAttribute("message", "Error: incorrect amount.");
+            return "user/CashInForm";}
+
+            transactionService.saveCashInTransaction(BigDecimal.valueOf(amount), user.getAccount(), user);
+            return "redirect:/home";
     }
 
 
+    /**
+     * GET for cash withdrawal
+     * @param model sets an empty amount for CashOut form
+     * @return
+     */
     @GetMapping("/user/cashOut")
     public String cashOut(Model model) {
         double amount = 0.00;
@@ -60,13 +90,26 @@ public class UserController {
         return "user/CashOutForm";
     }
 
+    /**
+     * POST for money withdrawal. It verify:
+     *      1)  If amount is >0
+     *      2)  If user have sufficient balance  for such amount
+     *
+     *
+     * @param amount Amount of cash to be transfered from account
+     * @param authentication used for determining currently loggedIn user
+     * @return saves CashOut transaction along with System Message
+     */
     @PostMapping("/user/cashOut")
     public String cashOut(Model model, @RequestParam("amount") double amount, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
         BigDecimal balance = user.getAccount().getCash();
         Account account = user.getAccount();
 
-            if (BigDecimal.valueOf(amount).compareTo(balance)>0) {
+            if ( !(amount>0) ) {
+                model.addAttribute("message", "Error: incorrect amount.");
+            }
+            else if (BigDecimal.valueOf(amount).compareTo(balance)>0) {
                 model.addAttribute("message", "Not enough credits on account.");
             }
             else {
@@ -78,7 +121,12 @@ public class UserController {
         return "user/CashOutForm";
     }
 
-
+    /**
+     * GET for listing all transactions for loggedIn user
+     *
+     * @param authentication used for determining currently loggedIn user
+     * @return
+     */
 
     @GetMapping("/user/transactions")
     public String showUserTransactions(Model model, Authentication authentication) {
@@ -87,7 +135,12 @@ public class UserController {
         return "user/UserTransactionsView";
     }
 
-
+    /**
+     * GET for listing all Favorite teams for loggedIn user
+     *
+     * @param authentication used for determining currently loggedIn user
+     * @return
+     */
 
     @GetMapping("user/favorites")
     public String favoritesView(Model model, Authentication authentication) {
@@ -100,6 +153,13 @@ public class UserController {
         return "user/FavoritesView";
     }
 
+    /**
+     * GET for adding a team {@link Team} to favorites list for loggedIn user
+     *
+     *  Verification if such team isn't on the list already. If yes - it simply redirects to Fav list without adding.
+     * @param authentication used for determining currently loggedIn user
+     * @return Saves current Fav list to loggedIn user
+     */
     @GetMapping("user/addToFav")
     public String addToFavorities(@RequestParam(value = "name", required = true) String name, Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
@@ -122,6 +182,12 @@ public class UserController {
         return "user/FavoritesView";
     }
 
+    /**
+     * GET for removing team from Fav list
+     * @param name Team name to be removed,
+     *
+     **/
+
     @GetMapping("user/remFromFav")
     public String removeFromFavorities(@RequestParam(value = "name", required = true) String name, Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
@@ -139,7 +205,10 @@ public class UserController {
         return "user/FavoritesView";
     }
 
-
+    /**
+     * GET for listing last 10 events {@link Event} with 'FT' status - so the last ones that ended
+     *
+     */
     @GetMapping("/user/lastEvents")
     public String lastEvents(Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
@@ -150,6 +219,11 @@ public class UserController {
         return "user/LastMatchesView";
     }
 
+    /**
+     * GET for editing currently loggedIn User details
+     *
+     *
+     */
     @GetMapping("/user/edit")
     public String userEdit(Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
@@ -158,6 +232,13 @@ public class UserController {
         return "user/UserEditForm";
     }
 
+    /**
+     * POST for saving edited User to DB.
+     * @param user Validated user, during edition he can change firstname, last name, and email address
+     * @param result For possible errors
+     * @param authentication For getting loggedIn user
+     
+     */
     @PostMapping("/user/edit")
     public String userEdit(@ModelAttribute User user, BindingResult result, Authentication authentication) {
         if (result.hasErrors()) {

@@ -14,6 +14,9 @@ import pl.coderslab.betok.service.UserService;
 
 import javax.validation.Valid;
 
+/**
+ * Controller responsible for web requests regarding User {@link User} registration procedure.
+ */
 @Controller
 public class RegisterController {
 
@@ -35,7 +38,11 @@ public class RegisterController {
     }
 
 
-
+    /**
+     * GET for user registration
+     * @param model Adds a empty model to form
+     * @return
+     */
 
     @GetMapping("/register")
     public String userForm(Model model) {
@@ -43,6 +50,13 @@ public class RegisterController {
         return "user/UserForm";
     }
 
+    /**
+     * POST for handling user registration procedure. It validates if given data is correct and saves a new user using
+     * User service {@link UserService }
+     * @param user valid user from registration form
+     * @param result for possible errors
+     *
+     */
     @PostMapping("/register")
     public String userForm(@Valid @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) {

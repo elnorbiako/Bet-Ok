@@ -14,6 +14,11 @@ import pl.coderslab.betok.service.UserService;
 import java.time.LocalDate;
 import java.util.List;
 
+
+/**
+ * This is controller responsible for handling web requests for Home Page.
+ *
+ */
 @Controller
 public class HomeController {
 
@@ -30,6 +35,11 @@ public class HomeController {
         this.eventService = eventService;
     }
 
+    /**
+     * GET for creating a Home page, passes to model info about logged user (for showing username and account balance)
+     * and list of 10 scheduled events
+     * @return
+     */
 
     @GetMapping("/home")
     public String home(Model model, Authentication authentication) {

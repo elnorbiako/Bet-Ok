@@ -18,6 +18,12 @@ import pl.coderslab.betok.service.UserService;
 
 import java.util.List;
 
+
+/**
+ * This is controller responsible for handling web requests regarding Events {@link Event}, along with functionality
+ * of live taking data of Head to Head from API Football.
+ *
+ */
 @Controller
 public class EventController {
 
@@ -36,6 +42,15 @@ public class EventController {
         this.teamRepository = teamRepository;
     }
 
+    /**
+     * GET for listing Teams {@link Team} for EventView.
+     *
+     * @param id eventId to define Event from link.
+     *
+     *
+     * Include a live Head to Head info from API Football, on  a given two team names. Its independent from Database
+     *           records - so can generate H2H for any givent teams.
+     */
 
     @GetMapping("/event")
     public String home(@RequestParam(value = "id", required = true) long id, Model model, Authentication authentication) {
@@ -53,6 +68,13 @@ public class EventController {
         return "user/EventView";
     }
 
+    /**
+     * GET for listing Team {@link Team} for TeamView (divided to home/away)
+     *
+     * @param name Team name is required, as this is a unique identificator for teams (mainly because API Football don't have
+     *             ids for them, so every request regarding team must include teamname
+     *
+     */
     @GetMapping("/team")
     public String home(@RequestParam(value = "name", required = true) String name, Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);

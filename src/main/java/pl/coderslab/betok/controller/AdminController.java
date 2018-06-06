@@ -15,6 +15,11 @@ import pl.coderslab.betok.service.UserService;
 
 import javax.validation.Valid;
 
+
+/**
+ * This is controller responsible for handling /administrator web requests. Its allowed only for users {@link User} with
+ * added ROLE_ADMIN role {@link pl.coderslab.betok.entity.Role}.
+ */
 @Controller
 public class AdminController {
 
@@ -37,6 +42,11 @@ public class AdminController {
 
 
 
+    /**
+     * GET for adding a new user {@link User} with ADMIN_ROLE rights. Only another admin can perform this operation.
+     * @return Form for creating new user with admin rights
+     *
+     */
 
     @GetMapping("/admin/addAdmin")
     public String adminForm(Model model) {
@@ -44,6 +54,11 @@ public class AdminController {
         return "admin/AdminForm";
     }
 
+    /**
+     * POST for adding a new user {@link User} with ADMIN_ROLE rights. Only another admin can perform this operation.
+     * @param  user from Spring Security logged in User
+     *
+     */
     @PostMapping("/admin/addAdmin")
     public String adminForm(@Valid @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) {
@@ -65,12 +80,22 @@ public class AdminController {
         return "redirect:/home";
     }
 
+    /**
+     * GET for listing all users {@link User} in DB.
+     *
+     */
     @GetMapping("/admin/users")
     public String showAllUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "admin/UsersView";
     }
 
+    /**
+     * GET for listing last 50 transactions  {@link pl.coderslab.betok.entity.Transaction} in DB.
+     * Can be easily modified to list all of them. When pagination using JS will be implemented this will be a
+     * preffered way of presenting data.
+     *
+     */
     @GetMapping("/admin/transactions")
     public String showAllTransactions(Model model) {
         model.addAttribute("transactions", transactionService.findTop50ByOrderByCreatedDesc());

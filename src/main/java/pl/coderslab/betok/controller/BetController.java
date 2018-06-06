@@ -16,6 +16,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+/**
+ * This is controller responsible for handling web requests regarding Bets {@link Bet}, along with critical functionality
+ * of placing a bet.
+ *
+ */
+
 @Controller
 public class BetController {
 
@@ -31,6 +38,14 @@ public class BetController {
         this.betService = betService;
     }
 
+    /**
+     * GET for placing a bet  {@link pl.coderslab.betok.entity.Bet}.
+     *
+     *
+     * @return Bet Form with already defined parameters: User {@link User}, Event {@link Event} and odds
+     * chosen by user on EventView.
+     *
+     * */
 
     @GetMapping("/user/bet/{id}/{odd}")
     public String placeBet(@PathVariable(value = "id", required = true) long eventId,
@@ -59,6 +74,24 @@ public class BetController {
         model.addAttribute("rate", rate);
         return "/user/BetForm";
     }
+
+    /**
+     * POST for placing a bet  {@link pl.coderslab.betok.entity.Bet}.
+     * @param eventId Event for which this particural bet will be placed
+     *
+     * @param odd Odd (bet type) chosen by user on Event Page.
+     *
+     * @param amount Amount of cash that user is willing to place on this bet. Filled in Bet form.
+     *
+     * @param rate Rate at which chosen odd will be calculated in case of a win
+     *
+     * Validations during saving (with error message):
+     *             1) If amount of cash is >0
+     *             2) If user have a sufficient amount of cash on account
+     *             3) If event is in 'SCHEDULED' status (to prevent betting on past events).
+     * @return Saves a correct bet to DB..
+     *
+     * */
 
     @PostMapping("/user/bet/{id}/{odd}")
     public String placeBet(@PathVariable(value = "id", required = true) long eventId,
@@ -104,6 +137,11 @@ public class BetController {
 
         return "/user/BetConfirm";
     }
+
+    /**
+     * GET for listing all bets {@link Bet} for a loggedIn user {@link User}- both active and passive (with result).
+     *
+     */
 
     @GetMapping("/user/bets")
     public String betsView(Model model, Authentication authentication) {
