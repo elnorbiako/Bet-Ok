@@ -17,5 +17,7 @@ public interface BetService {
 
         void betVerificator();
 
+        void updateBet(Bet bet);
+
 
 }

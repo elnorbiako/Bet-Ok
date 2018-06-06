@@ -22,30 +22,35 @@
 </head>
 <body>
 
-<a th:href="@{/home}"><button>Back to Home page.</button></a>
+<div style="alignment: left">
 
+<a th:href="@{/home}"><button>Back to Home page</button></a>
+<a th:href="@{/user/transactions}"><button>List all transactions</button></a>
+
+</div>
 
 <div style="alignment: center">
-<h3 th:text="|Transactions: |">Transactions</h3>
+<h3 th:text="|Transaction ${transaction.id} details: |">Transaction</h3>
 <table>
     <tr>
-        <th>No.</th>
+        <th>ID.</th>
         <th>Type</th>
         <th>Created</th>
         <th>Amount (credits)</th>
-        <th>Details</th>
+        <th>Account Id</th>
+        <th>Payment method</th>
 
     </tr>
-    <tr th:each="transaction, iterStat: ${transactions}" th:object="${transaction}">
-        <td th:text="|${iterStat.count}.|">1.</td>
-        <td th:text="*{transactionType.getName()}">CashIn</td>
-        <td th:text="*{created}">1.1.1999</td>
-        <td th:text="*{amount}">200</td>
-        <td><a th:href="@{/transaction(id=${transaction.id})}">Transaction details</a></td>
+    <tr>
+        <td th:text="${transaction.id}">1.</td>
+        <td th:text="${transaction.transactionType.getName()}">CashIn</td>
+        <td th:text="${transaction.created}">1.1.1999</td>
+        <td th:text="${transaction.amount}">200</td>
+        <td th:text="${transaction.account.getId()}">200</td>
+        <td th:text="|Payment method|">200</td>
     </tr>
 </table>
 </div>
-
 
 
 

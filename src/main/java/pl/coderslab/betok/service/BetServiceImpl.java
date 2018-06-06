@@ -2,9 +2,9 @@ package pl.coderslab.betok.service;
 
 import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Bet;
-import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.repository.BetRepository;
 
+import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,10 +14,12 @@ public class BetServiceImpl implements BetService {
 
     private final BetRepository betRepository;
     private final TransactionService transactionService;
+    private final EntityManager em;
 
-    public BetServiceImpl(BetRepository betRepository, TransactionService transactionService) {
+    public BetServiceImpl(BetRepository betRepository, TransactionService transactionService, EntityManager em) {
         this.betRepository = betRepository;
         this.transactionService = transactionService;
+        this.em = em;
     }
 
     @Override
@@ -62,13 +64,18 @@ public class BetServiceImpl implements BetService {
                     bet.setResult("W");
                     BigDecimal win = bet.getAmount().multiply(bet.getRate());
                     transactionService.saveBetWinTransaction(win, bet.getUser().getAccount());
-                    saveBet(bet);
+                    betRepository.save(bet);
                 } else {
                     bet.setResult("L");
-                    saveBet(bet);
+                    betRepository.save(bet);
                 }
             }
 
         }
+    }
+
+    @Override
+    public void updateBet(Bet bet) {
+        em.merge(bet);
     }
 }
