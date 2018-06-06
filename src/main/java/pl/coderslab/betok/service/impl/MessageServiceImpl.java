@@ -31,7 +31,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> allByReceiverId(long id) {
-        return messageRepository.findAllByReceiverId(id);
+        return messageRepository.findAllByReceiverIdOrderByCreatedDesc(id);
     }
 
     @Override

@@ -5,6 +5,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderslab.betok.service.ApiService;
 
+
+/**
+ * This is controller responsible for handling upcoming Events {@link pl.coderslab.betok.entity.Event }.
+ *
+ *
+ *
+ * @return JSON with list of all upcoming Events
+ */
+
 @RestController
 @RequestMapping("/api")
 public class ApiEventController {
