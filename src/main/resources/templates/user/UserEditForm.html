@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <!-- Page title -->
-    <title> Register</title>
+    <title> User Edit</title>
 </head>
 <body>
 
@@ -11,7 +11,7 @@
 <form th:action="@{/user/edit}" th:object="${user}" method="post">
     <p>Update first name: <input type="text" th:field="*{firstName}" th:placeholder="*{firstName}"/></p>
     <p>Update last name: <input type="text" th:field="*{lastName}" th:placeholder="*{lastName}"/>
-    <p>Email: <input type="text" th:field="*{email}" th:placeholder="*{email}"/>
+    <p>Email: <input type="text" th:field="*{email}" th:placeholder="*{email}"/><br>
 
     <button type="submit">Save changes</button>
 
