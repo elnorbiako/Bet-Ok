@@ -1,4 +1,4 @@
-package pl.coderslab.betok.service;
+package pl.coderslab.betok.service.impl;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -7,6 +7,7 @@ import pl.coderslab.betok.entity.Account;
 import pl.coderslab.betok.entity.Role;
 import pl.coderslab.betok.entity.User;
 import pl.coderslab.betok.repository.UserRepository;
+import pl.coderslab.betok.service.UserService;
 
 
 import javax.persistence.EntityManager;

@@ -1,8 +1,10 @@
-package pl.coderslab.betok.service;
+package pl.coderslab.betok.service.impl;
 
 import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Bet;
 import pl.coderslab.betok.repository.BetRepository;
+import pl.coderslab.betok.service.BetService;
+import pl.coderslab.betok.service.TransactionService;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;

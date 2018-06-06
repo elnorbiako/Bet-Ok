@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Received Messages</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th {
+            background: #000;
+            color: #fff;
+        }
+        td {
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<a th:href="@{/home}"><button>Back to Home page.</button></a>
+
+
+<div style="alignment: center">
+<h3 th:text="|Received messages: |">Messages</h3>
+<table>
+    <tr>
+        <th>No.</th>
+        <th>Sender</th>
+        <th>Title</th>
+        <th>Created</th>
+        <th>Details</th>
+
+    </tr>
+    <tr th:each="message, iterStat: ${messages}" th:object="${message}">
+        <td th:text="|${iterStat.count}.|">1.</td>
+        <td th:text="*{sender.getUsername()}">Sender username</td>
+        <td th:text="*{title}">title</td>
+        <td th:text="*{created}">200</td>
+        <td><a th:href="@{/message(id=${message.id})}">Read message</a></td>
+    </tr>
+</table>
+</div>
+
+
+
+
+</body>
+</html>

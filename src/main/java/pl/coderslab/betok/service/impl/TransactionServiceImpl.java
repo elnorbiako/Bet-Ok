@@ -1,14 +1,17 @@
-package pl.coderslab.betok.service;
+package pl.coderslab.betok.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.betok.entity.Account;
+import pl.coderslab.betok.entity.Message;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.TransactionType;
 import pl.coderslab.betok.repository.AccountRepository;
 import pl.coderslab.betok.repository.TransactionRepository;
 import pl.coderslab.betok.repository.TransactionTypeRepository;
+import pl.coderslab.betok.service.MessageService;
+import pl.coderslab.betok.service.TransactionService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,14 +20,28 @@ import java.util.List;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
+    final
     TransactionTypeRepository transactionTypeRepository;
 
-    @Autowired
+    final
     TransactionRepository transactionRepository;
 
-    @Autowired
+    final
     AccountRepository accountRepository;
+
+    final
+    MessageService messageService;
+
+    @Autowired
+    public TransactionServiceImpl(TransactionTypeRepository transactionTypeRepository,
+                                  TransactionRepository transactionRepository,
+                                  AccountRepository accountRepository,
+                                  MessageService messageService) {
+        this.transactionTypeRepository = transactionTypeRepository;
+        this.transactionRepository = transactionRepository;
+        this.accountRepository = accountRepository;
+        this.messageService = messageService;
+    }
 
     @Override
     public List<Transaction> findByTransactionTypeName(String name) {
@@ -59,6 +76,12 @@ public class TransactionServiceImpl implements TransactionService {
         account.setCash(current);
         transactionRepository.save(transactionDb);
         accountRepository.save(account);
+        Message message = new Message();
+        message.setTitle("New CashIn transaction");
+        message.setMessageText("Test message from System. Amount: "+ amount.toString() + " credits." );
+        messageService.sendSystemMessage(message, account.getUser());
+
+    //    System.out.println(account.getUser().getUsername());
     }
 
     @Transactional

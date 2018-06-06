@@ -1,8 +1,9 @@
-package pl.coderslab.betok.service;
+package pl.coderslab.betok.service.impl;
 
 import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Event;
 import pl.coderslab.betok.repository.EventRepository;
+import pl.coderslab.betok.service.EventService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

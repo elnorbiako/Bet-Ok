@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pl.coderslab.betok.entity.User;
 import pl.coderslab.betok.repository.UserRepository;
+import pl.coderslab.betok.service.impl.RoleServiceImpl;
+import pl.coderslab.betok.service.impl.UserServiceImpl;
 
 import javax.persistence.EntityManager;
 

@@ -1,4 +1,4 @@
-package pl.coderslab.betok.service;
+package pl.coderslab.betok.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import pl.coderslab.betok.repository.CountryRepository;
 import pl.coderslab.betok.repository.EventRepository;
 import pl.coderslab.betok.repository.LeagueRepository;
 import pl.coderslab.betok.repository.TeamRepository;
+import pl.coderslab.betok.service.APIFootballService;
 
 import java.time.LocalDate;
 

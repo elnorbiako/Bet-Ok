@@ -38,9 +38,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Bet> bets;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Message> messages;
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    List<Message> messagesReceived;
 
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    List<Message> messagesSent;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -54,6 +56,10 @@ public class User {
     @OneToOne(cascade = { CascadeType.ALL })
     @JoinColumn
     private Account account;
+//
+//    @OneToOne(mappedBy = "phone",
+//            cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY)
 
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    private Set<Project> projects;
@@ -162,5 +168,21 @@ public class User {
 
     public void setBets(List<Bet> bets) {
         this.bets = bets;
+    }
+
+    public List<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(List<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
+    }
+
+    public List<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(List<Message> messagesSent) {
+        this.messagesSent = messagesSent;
     }
 }

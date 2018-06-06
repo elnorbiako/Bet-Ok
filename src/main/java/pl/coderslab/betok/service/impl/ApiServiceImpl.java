@@ -1,4 +1,4 @@
-package pl.coderslab.betok.service;
+package pl.coderslab.betok.service.impl;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Bet;
 import pl.coderslab.betok.entity.Event;
 import pl.coderslab.betok.entity.Transaction;
+import pl.coderslab.betok.service.ApiService;
+import pl.coderslab.betok.service.BetService;
+import pl.coderslab.betok.service.EventService;
+import pl.coderslab.betok.service.TransactionService;
 
 import java.util.ArrayList;
 import java.util.List;

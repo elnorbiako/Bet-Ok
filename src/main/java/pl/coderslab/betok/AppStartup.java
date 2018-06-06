@@ -37,10 +37,13 @@ public class AppStartup implements ApplicationRunner {
         if (userService.getNumUsers() == 0L) {
             userService.saveUser(testUser1());
             userService.saveUser(testUser2());
+            userService.saveUser(systemUser());
         }
         if (transactionTypeService.getNumTT() == 0L) {
             transactionTypeService.saveTT("CashIn");
             transactionTypeService.saveTT("CashOut");
+            transactionTypeService.saveTT("PlaceBet");
+            transactionTypeService.saveTT("BetWon");
         }
     }
 
@@ -61,6 +64,18 @@ public class AppStartup implements ApplicationRunner {
         user.setPassword("admin");
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(roleService.getOrCreate("ROLE_ADMIN"));
+        userRoles.add(roleService.getOrCreate("ROLE_USER"));
+        user.setRoles(userRoles);
+        return user;
+    }
+
+    private User systemUser() {
+        User user = new User();
+        user.setUsername("system");
+        user.setPassword("system");
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(roleService.getOrCreate("ROLE_ADMIN"));
+        userRoles.add(roleService.getOrCreate("ROLE_USER"));
         user.setRoles(userRoles);
         return user;
     }

@@ -1,9 +1,10 @@
-package pl.coderslab.betok.service;
+package pl.coderslab.betok.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.betok.entity.Role;
 import pl.coderslab.betok.repository.RoleRepository;
+import pl.coderslab.betok.service.RoleService;
 
 @Service
 public class RoleServiceImpl implements RoleService {
