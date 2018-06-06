@@ -20,4 +20,6 @@ public interface MessageService {
     void sendSystemMessage(Message message, User receiver);
 
     void receiveMessage(Message message);
+
+    void updateMessage(Message message);
 }

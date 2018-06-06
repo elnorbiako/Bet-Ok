@@ -3,10 +3,7 @@ package pl.coderslab.betok.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.betok.entity.Account;
-import pl.coderslab.betok.entity.Message;
-import pl.coderslab.betok.entity.Transaction;
-import pl.coderslab.betok.entity.TransactionType;
+import pl.coderslab.betok.entity.*;
 import pl.coderslab.betok.repository.AccountRepository;
 import pl.coderslab.betok.repository.TransactionRepository;
 import pl.coderslab.betok.repository.TransactionTypeRepository;
@@ -65,7 +62,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional
     @Override
-    public void saveCashInTransaction(BigDecimal amount, Account account) {
+    public void saveCashInTransaction(BigDecimal amount, Account account, User user) {
         Transaction transactionDb = new Transaction();
         transactionDb.setCreated(LocalDateTime.now());
         transactionDb.setAmount(amount);
@@ -79,14 +76,14 @@ public class TransactionServiceImpl implements TransactionService {
         Message message = new Message();
         message.setTitle("New CashIn transaction");
         message.setMessageText("Test message from System. Amount: "+ amount.toString() + " credits." );
-        messageService.sendSystemMessage(message, account.getUser());
+        messageService.sendSystemMessage(message, user);
 
     //    System.out.println(account.getUser().getUsername());
     }
 
     @Transactional
     @Override
-    public void saveCashOutTransaction(BigDecimal amount, Account account) {
+    public void saveCashOutTransaction(BigDecimal amount, Account account, User user) {
         Transaction transactionDb = new Transaction();
         transactionDb.setCreated(LocalDateTime.now());
         transactionDb.setAmount(amount);
@@ -97,11 +94,15 @@ public class TransactionServiceImpl implements TransactionService {
         account.setCash(current);
         transactionRepository.save(transactionDb);
         accountRepository.save(account);
+        Message message = new Message();
+        message.setTitle("New CashOut transaction");
+        message.setMessageText("Test message from System. Amount: "+ amount.toString() + " credits." );
+        messageService.sendSystemMessage(message, user);
     }
 
     @Transactional
     @Override
-    public void savePlaceBetTransaction(BigDecimal amount, Account account) {
+    public void savePlaceBetTransaction(BigDecimal amount, Account account, User user) {
         Transaction transactionDb = new Transaction();
         transactionDb.setCreated(LocalDateTime.now());
         transactionDb.setAmount(amount);
@@ -112,11 +113,15 @@ public class TransactionServiceImpl implements TransactionService {
         account.setCash(current);
         transactionRepository.save(transactionDb);
         accountRepository.save(account);
+        Message message = new Message();
+        message.setTitle("New Bet placed");
+        message.setMessageText("Test message from System. Amount: "+ amount.toString() + " credits." );
+        messageService.sendSystemMessage(message, user);
     }
 
     @Transactional
     @Override
-    public void saveBetWinTransaction(BigDecimal amount, Account account) {
+    public void saveBetWinTransaction(BigDecimal amount, Account account, User user) {
         Transaction transactionDb = new Transaction();
         transactionDb.setCreated(LocalDateTime.now());
         transactionDb.setAmount(amount);
@@ -127,6 +132,10 @@ public class TransactionServiceImpl implements TransactionService {
         account.setCash(current);
         transactionRepository.save(transactionDb);
         accountRepository.save(account);
+        Message message = new Message();
+        message.setTitle("Congratulations! You won!");
+        message.setMessageText("Test message from System. Amount: "+ amount.toString() + " credits." );
+        messageService.sendSystemMessage(message, user);
     }
 
     @Override

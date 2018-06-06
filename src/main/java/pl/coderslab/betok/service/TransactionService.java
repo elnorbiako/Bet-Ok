@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.betok.entity.Account;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.TransactionType;
+import pl.coderslab.betok.entity.User;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,12 +19,12 @@ public interface TransactionService {
     List<Transaction> findTop50ByOrderByCreatedDesc();
     List<Transaction> findAllOrderByCreatedDesc();
 
-    void saveCashInTransaction(BigDecimal amount, Account account);
-    void saveCashOutTransaction(BigDecimal amount, Account account);
+    void saveCashInTransaction(BigDecimal amount, Account account, User user);
+    void saveCashOutTransaction(BigDecimal amount, Account account, User user);
 
     @Transactional
-    void savePlaceBetTransaction(BigDecimal amount, Account account);
+    void savePlaceBetTransaction(BigDecimal amount, Account account, User user);
 
     @Transactional
-    void saveBetWinTransaction(BigDecimal amount, Account account);
+    void saveBetWinTransaction(BigDecimal amount, Account account, User user);
 }

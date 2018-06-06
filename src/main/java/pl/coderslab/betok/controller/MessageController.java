@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.betok.entity.Message;
 import pl.coderslab.betok.entity.Transaction;
 import pl.coderslab.betok.entity.User;
+import pl.coderslab.betok.repository.MessageRepository;
 import pl.coderslab.betok.service.MessageService;
 import pl.coderslab.betok.service.TransactionService;
 import pl.coderslab.betok.service.UserService;
@@ -24,6 +25,8 @@ public class MessageController {
     final
     UserService userService;
 
+
+
     @Autowired
     public MessageController(MessageService messageService, UserService userService) {
         this.messageService = messageService;
@@ -38,6 +41,20 @@ public class MessageController {
 
 
         return "user/ReceivedMessagesView";
+
+    }
+
+    @GetMapping("/user/message")
+    public String messageDetail(@RequestParam(value = "id", required = true) long id, Model model) {
+
+        Message message = messageService.findById(id);
+        message.setRead(true);
+        messageService.updateMessage(message);
+
+
+        model.addAttribute("message", message);
+
+        return "user/MessageView";
 
     }
 

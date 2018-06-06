@@ -47,7 +47,7 @@ public class UserController {
     @GetMapping("/user/cashIn/{amount}")
     public String cashIn(@PathVariable double amount, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
-        transactionService.saveCashInTransaction(BigDecimal.valueOf(amount), user.getAccount());
+        transactionService.saveCashInTransaction(BigDecimal.valueOf(amount), user.getAccount(), user);
         return "redirect:/home";
     }
 
@@ -70,7 +70,7 @@ public class UserController {
                 model.addAttribute("message", "Not enough credits on account.");
             }
             else {
-                transactionService.saveCashOutTransaction(BigDecimal.valueOf(amount), account);
+                transactionService.saveCashOutTransaction(BigDecimal.valueOf(amount), account, user);
                 model.addAttribute("message", "Transfer complete.");
             }
 

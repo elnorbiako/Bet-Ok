@@ -62,4 +62,9 @@ public class MessageServiceImpl implements MessageService {
         message.setRead(false);
         messageRepository.save(message);
     }
+
+    @Override
+    public void updateMessage(Message message) {
+        messageRepository.save(message);
+    }
 }

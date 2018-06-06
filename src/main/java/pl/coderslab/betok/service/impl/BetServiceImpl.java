@@ -42,7 +42,7 @@ public class BetServiceImpl implements BetService {
     @Override
     public void saveBet(Bet bet) {
 
-        transactionService.savePlaceBetTransaction(bet.getAmount(), bet.getUser().getAccount());
+        transactionService.savePlaceBetTransaction(bet.getAmount(), bet.getUser().getAccount(), bet.getUser());
 
         betRepository.save(bet);
 
@@ -65,7 +65,7 @@ public class BetServiceImpl implements BetService {
                 if (bet.getOdd().equals(bet.getEvent().getResult() ) )  {
                     bet.setResult("W");
                     BigDecimal win = bet.getAmount().multiply(bet.getRate());
-                    transactionService.saveBetWinTransaction(win, bet.getUser().getAccount());
+                    transactionService.saveBetWinTransaction(win, bet.getUser().getAccount(), bet.getUser());
                     betRepository.save(bet);
                 } else {
                     bet.setResult("L");

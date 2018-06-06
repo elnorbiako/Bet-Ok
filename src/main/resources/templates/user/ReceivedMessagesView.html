@@ -34,6 +34,7 @@
         <th>Title</th>
         <th>Created</th>
         <th>Details</th>
+       
 
     </tr>
     <tr th:each="message, iterStat: ${messages}" th:object="${message}">
@@ -41,7 +42,8 @@
         <td th:text="*{sender.getUsername()}">Sender username</td>
         <td th:text="*{title}">title</td>
         <td th:text="*{created}">200</td>
-        <td><a th:href="@{/message(id=${message.id})}">Read message</a></td>
+        <td><a th:href="@{/user/message(id=${message.id})}">Read message</a></td>
+        <td th:if="${message.isRead().equals(false)}" th:text="'NEW!'"></td>
     </tr>
 </table>
 </div>
