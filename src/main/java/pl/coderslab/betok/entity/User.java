@@ -7,6 +7,18 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Main entity in app. It represents both and user in therms of Spring Security (right now there are two roles {@link Role}:
+ * User and Admin (in future this can be extended, for example: Dev for external API users, which will have access to
+ * REST API section) and a actual user of the system. Each user is unique with his own account {@link Account},
+ * messages {@link Message} sent and received, active and inactive bets {@link Bet}, list of favorite teams {@link Team}
+ * and additional supporting parameters.
+ *
+ * In future for sure I would like to add some real payments mechanism (like PayPal, CreditCard ) to User account,
+ *  maybe integrate it with some external API to handle payments procedure.
+ *
+ *
+ */
 
 @Entity
 @Table(name = "users")
@@ -56,14 +68,7 @@ public class User {
     @OneToOne(cascade = { CascadeType.ALL })
     @JoinColumn
     private Account account;
-//
-//    @OneToOne(mappedBy = "phone",
-//            cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY)
 
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    private Set<Project> projects;
-//
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Team> favorites;
 

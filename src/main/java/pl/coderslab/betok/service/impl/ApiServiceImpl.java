@@ -14,6 +14,18 @@ import pl.coderslab.betok.service.TransactionService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service for translating data from our database to our external API. Right now it supports possibility of getting
+ * Upcoming events {@link Event}, specified user transaction (with given userId) {@link Transaction} or list of all
+ * transactions, and a list of bets {@link Bet} for given user (with given userId).
+ *
+ * Data is requested and transfered via ApiControllers {@link pl.coderslab.betok.controller.api.ApiEventController},
+ * {@link pl.coderslab.betok.controller.api.ApiBetController}, {@link pl.coderslab.betok.controller.api.ApiTransactionController}
+ *
+ * Reminder- look for some support methods/archives that will help with translating Entity data to JSON Objects. Maybe
+ * some converter or something like BeanUtils.copyProperties
+ */
+
 @Service
 public class ApiServiceImpl implements ApiService {
 

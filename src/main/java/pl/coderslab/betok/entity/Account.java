@@ -6,6 +6,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * This entity represent an User's {@link User} account, which held transactions {@link Transaction} list and total
+ * balance.
+ * In future there should be some kind of scheduled verification of integrity (sum of all transactions = balance)
+ * with system alerts if sum isn't right.
+ * Cash is held as a BigDecimal, due to a math inconsistent behaviour of a double type.
+ */
+
 
 @Entity
 @Table(name = "accounts")

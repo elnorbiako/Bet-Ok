@@ -21,21 +21,38 @@ import pl.coderslab.betok.service.APIFootballService;
 
 import java.time.LocalDate;
 
+/**
+ * Service responsible for data transfer with API Football - mostly methods that uses their API and translate them to
+ * supporting DTO class and then to Entity class.
+ *
+ * All data transfer should be re-written to Bean.Utils.copyProperties (like its done in getTeams method) or using
+ * a converter, to clean up the code.
+ *
+ * Data is requested and transfered via ApiFootballController {@link pl.coderslab.betok.controller.ApiFootballController}
+ */
 @Service
 public class APIFootballServiceImpl implements APIFootballService {
 
-    @Autowired
-    CountryRepository countryRepository;
+    final private CountryRepository countryRepository;
+
+    final private LeagueRepository leagueRepository;
+
+    final private TeamRepository teamRepository;
+
+    final private EventRepository eventRepository;
 
     @Autowired
-    LeagueRepository leagueRepository;
+    public APIFootballServiceImpl(CountryRepository countryRepository, LeagueRepository leagueRepository, TeamRepository teamRepository, EventRepository eventRepository) {
+        this.countryRepository = countryRepository;
+        this.leagueRepository = leagueRepository;
+        this.teamRepository = teamRepository;
+        this.eventRepository = eventRepository;
+    }
 
-    @Autowired
-    TeamRepository teamRepository;
-
-    @Autowired
-    EventRepository eventRepository;
-
+    /**
+     * In free account of API Football we can use only England and France, as the only available leagues are Championship
+     * and Ligue2
+     */
     @Override
     public void getCountries() {
 
@@ -74,8 +91,8 @@ public class APIFootballServiceImpl implements APIFootballService {
 
     /**
      * Method for populating the database with events from API Football; set to download events from last 3 months
-     * from both available leagues: Championship and Legue2. As it can take a long amount of time, it is set to use
-     * multithreading with Spring @Async
+     * from both available leagues: Championship and Ligue2. As it can take a long amount of time, it is set to use
+     *      * multithreading with Spring @Async
      *
      * @return
      */

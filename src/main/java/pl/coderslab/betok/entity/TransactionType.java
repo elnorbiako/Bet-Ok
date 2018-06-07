@@ -3,6 +3,9 @@ package pl.coderslab.betok.entity;
 
 import javax.persistence.*;
 
+/**
+ * Type of transaction. Right now there are four basic ones: CashIn, CashOut, PlaceBet, BetWon
+ */
 @Entity
 @Table(name = "transaction_types")
 public class TransactionType {

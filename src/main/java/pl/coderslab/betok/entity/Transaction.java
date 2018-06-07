@@ -6,6 +6,11 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Entity that represents in-app accounting transaction system. Its linked to users {@link User} account {@link Account}.
+ * Using API can be integrated with some external accounting system.
+ * Future - can implement some kind of scheduled validation (like checking sum of all transactions == account balance)
+ */
 @Entity
 @Table(name = "transactions")
 public class Transaction {

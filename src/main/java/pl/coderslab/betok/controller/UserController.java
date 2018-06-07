@@ -237,7 +237,7 @@ public class UserController {
      * @param user Validated user, during edition he can change firstname, last name, and email address
      * @param result For possible errors
      * @param authentication For getting loggedIn user
-     
+
      */
     @PostMapping("/user/edit")
     public String userEdit(@ModelAttribute User user, BindingResult result, Authentication authentication) {

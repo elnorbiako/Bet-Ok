@@ -2,6 +2,10 @@ package pl.coderslab.betok.entity;
 
 import javax.persistence.*;
 
+/**
+ * Entity used to overwrite standard Spring Security roles - to easy up user rights management.
+ *
+ */
 @Entity
 @Table(name = "roles")
 public class Role {

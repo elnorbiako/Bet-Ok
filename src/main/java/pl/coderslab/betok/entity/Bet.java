@@ -6,6 +6,18 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Entity representation of critical thing in betting app - bet itself.
+ * Description:
+ *      - User {@link User} represent owner of a bet
+ *      - Amount (BigDec) represent cash that user put on that bet
+ *      - Rate represents odd factor fo users type. In 'normal' conditions this will be gathered from external API.
+ *      right now, due to some problems with API Football mechanism, rates are randomized at 1.01 to 4.99
+ *      - Event {@link Event} to which this particular bet is connected. In future this can bet upgraded to an MultiBet,
+ *      where on one bet User can add multiple events with multiple rates. Then rate is multiplied by each rate, but to
+ *      win all bets in multibet must ended as WON.
+ *
+ */
 @Entity
 @Table(name = "bets")
 public class Bet {

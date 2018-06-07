@@ -3,6 +3,12 @@ package pl.coderslab.betok.entity;
 
 import javax.persistence.*;
 
+/**
+ * Entity for team representation. In 'real' conditions will be synchronized with API Football (or other external provider) to download
+ * fresh data (standings and event history).
+ * In future this class will be more flexible (probably using an abstract class) to handle wider range of sports - for ex.
+ * FootballEvent, TennisEvent, GPEvent and so on.
+ */
 @Entity
 @Table(name = "teams")
 public class Team {

@@ -4,6 +4,11 @@ package pl.coderslab.betok.entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Representation of a in-app Message system. Right now it is used to send system messages for transactions
+ * {@link Transaction} like CashIn, CashOut, BetPlaced, BetWin. In future it can be extended to a User {@link User} to
+ * user messages, and add a email sending support (as all users needs to state emails for their account).
+ */
 @Entity
 @Table(name = "messages")
 public class Message {
@@ -12,6 +17,10 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
+    /**
+     * Users {@link User} in message system are in relation Two to many (twice one to many)
+     */
     @ManyToOne
     @JoinColumn
     private User sender;
@@ -26,6 +35,9 @@ public class Message {
 
     private String messageText;
 
+    /**
+     * Used to list messages as NEW! or already red
+     */
     private boolean isRead;
 
     public Message() {

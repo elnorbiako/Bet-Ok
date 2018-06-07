@@ -4,7 +4,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-
+/**
+ * Entity represents single event (right now a football match). It is a base to place a bet. In normal conditions (real
+ * events will be present) there will be no need to randomize anything. Right now, because of a gap in football matches
+ * (pre World Cup period) and a strong will to test algorithms, some thngs (odds, future events, match results) are
+ * randomized.
+ * Teams are linked by both a team object {@link Team} and a String teamName to easy up integration with external Api,
+ * as teamName is a unique key in API football.
+ */
 @Entity
 @Table(name = "events")
 public class Event {
@@ -13,9 +20,10 @@ public class Event {
     private long id;
 
     private LocalDate date;
-
-    // need to think about that - if String will be enough. Maybe a entity for that?
-    // also - don't know how API shows time during live events. So i guess it will be: SCHEDULED, FT, HT and 1-90
+/**
+    need to think about that - if String will be enough. Maybe a entity for that? [EDIT] Seems that it is enough.
+    also - don't know how API shows time during live events. So i guess it will be: SCHEDULED, FT, HT and 1-90
+ */
     private String status;
 
     private String time;
@@ -40,17 +48,24 @@ public class Event {
 
     private int awayGoals;
 
+    /**
+     * To be used as a marker for live events (ongoing play), which can be for ex. shown on a Home page.
+     * As there aren't any live matches right now, parameter have no use.
+     */
     private int live;
 
-
-    //odds to be randomized. I've tried to add 'on the fly odds from APIfootball, but due to some problems with that and
-    //lack od time...
+/**
+    odds to be randomized. I've tried to add 'on the fly odds from APIfootball, but due to some problems with that and
+    lack od time...
+ */
     private BigDecimal odd_1;
     private BigDecimal odd_x;
     private BigDecimal odd_2;
 
-    //Set when event is finished. Possible: 1, X, 2. Algorithm checks goal count and determines result. Bet entity
-    //will check for this info
+    /**
+    Set when event is finished. Possible: 1, X, 2. Algorithm checks goal count and determines result. Bet entity
+    will check for this info
+     */
     private String result;
 
 
