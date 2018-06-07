@@ -36,7 +36,7 @@ public class BetServiceImpl implements BetService {
 
     @Override
     public List<Bet> findByActiveAndUserId(int active, long id) {
-        return betRepository.findByActiveAndUserId(active, id);
+        return betRepository.findByActiveAndUserIdOrderByCreatedDesc(active, id);
     }
 
     @Override

@@ -123,7 +123,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> find10LastEvents(String status) {
-        return eventRepository.findTop10ByStatusOrderByDateDesc(status);
+        return eventRepository.findTop10ByStatusOrderByDateDescTimeDesc(status);
     }
 
     @Override
