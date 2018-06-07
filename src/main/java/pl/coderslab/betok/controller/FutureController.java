@@ -8,8 +8,8 @@ import pl.coderslab.betok.service.EventService;
 
 
 /**
- * This is controller responsible for handling web requests regarding generating future Events {@link Event}.
- * It won't be needed in 'normal' conditions, where Apllication will use real data form API football.
+ * This is controller responsible for handling web requests regarding generating future {@link Event}.
+ * It won't be needed in 'normal' conditions, where Application will use real data form API football.
  *
  */
 @Controller

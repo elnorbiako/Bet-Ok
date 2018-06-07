@@ -28,7 +28,7 @@ import java.time.LocalDate;
  * All data transfer should be re-written to Bean.Utils.copyProperties (like its done in getTeams method) or using
  * a converter, to clean up the code.
  *
- * Data is requested and transfered via ApiFootballController {@link pl.coderslab.betok.controller.ApiFootballController}
+ * Data is requested and transfered via {@link pl.coderslab.betok.controller.ApiFootballController}
  */
 @Service
 public class APIFootballServiceImpl implements APIFootballService {

@@ -8,7 +8,7 @@ import pl.coderslab.betok.service.MessageService;
 import pl.coderslab.betok.service.TransactionTypeService;
 
 /**
- * Service for handling Transaction Type {@link TransactionType}
+ * Service for handling {@link TransactionType}
  */
 
 @Service

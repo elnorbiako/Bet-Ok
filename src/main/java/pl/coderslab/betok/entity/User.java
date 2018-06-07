@@ -1,17 +1,21 @@
 package pl.coderslab.betok.entity;
 
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
 /**
- * Main entity in app. It represents both and user in therms of Spring Security (right now there are two roles {@link Role}:
+ * Main entity in app. It represents both and user in therms of Spring Security (right now there are two {@link Role}:
  * User and Admin (in future this can be extended, for example: Dev for external API users, which will have access to
  * REST API section) and a actual user of the system. Each user is unique with his own account {@link Account},
- * messages {@link Message} sent and received, active and inactive bets {@link Bet}, list of favorite teams {@link Team}
+ * {@link Message} sent and received, active and inactive {@link Bet}, list of favorite {@link Team}
  * and additional supporting parameters.
  *
  * In future for sure I would like to add some real payments mechanism (like PayPal, CreditCard ) to User account,
@@ -72,7 +76,8 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Team> favorites;
 
-
+    @AssertTrue(message = "You must be over 18 to proceed.")
+    private boolean isAdult;
 
 
     public User() {
@@ -189,5 +194,13 @@ public class User {
 
     public void setMessagesSent(List<Message> messagesSent) {
         this.messagesSent = messagesSent;
+    }
+
+    public boolean isAdult() {
+        return isAdult;
+    }
+
+    public void setAdult(boolean adult) {
+        isAdult = adult;
     }
 }

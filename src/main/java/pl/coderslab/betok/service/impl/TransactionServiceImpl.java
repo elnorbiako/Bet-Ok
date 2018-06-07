@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Service responsible for handling Transaction {@link Transaction} logic. It simulates in-app accounting system.
+ * Service responsible for handling {@link Transaction} logic. It simulates in-app accounting system.
  * There are four main transactions: CashIn, CashOut, PlaceBet, BetWin.
  */
 
@@ -62,13 +62,13 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     /**
-     * Method for CashIn transaction - so when user {@link User} want to add money to his account {@link Account}.
+     * Method for CashIn transaction - so when {@link User} want to add money to his {@link Account}.
      * Procedure:
      *      1) sets created to now().
      *      2) updates account balance for loggedIn User
      *      3) sets transactionType to 'CashIn'
      *      4) saves both account and transaction
-     *      5) using messageService {@link MessageServiceImpl} it sends a system message with info about transaction.
+     *      5) using {@link MessageServiceImpl} it sends a system message with info about transaction.
      * @param amount amount from Cash In form, how much money users wants to add to account
      * @param account account for a loggedIn user (in theory its a separate param to allow adding money not to own account,
      *                but also another (give cash to a friend, or system adding money as a bonus)
@@ -96,13 +96,13 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
     /**
-     * Method for CashOut transaction - so when user {@link User} wants to withdraw money from his account {@link Account}.
+     * Method for CashOut transaction - so when {@link User} wants to withdraw money from his {@link Account}.
      * Procedure:
      *      1) sets created to now().
      *      2) updates account balance for loggedIn User
      *      3) sets transactionType to 'CashOut'
      *      4) saves both account and transaction
-     *      5) using messageService {@link MessageServiceImpl} it sends a system message with info about transaction.
+     *      5) using {@link MessageServiceImpl} it sends a system message with info about transaction.
      * @param amount amount from POST CashOut form, how much money users wants to withdraw
      * @param account account for a loggedIn user
      * @param user currently loggedIn user
@@ -127,7 +127,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     /**
-     * Similar to CashOut transaction, but amount is transfered to placed Bet {@link Bet}
+     * Similar to CashOut transaction, but amount is transfered to placed {@link Bet}
      * @param amount amount of cash invested in particular Bet
      * @param account user account, separate for future implementation of a group bet
      * @param user loggedIn user

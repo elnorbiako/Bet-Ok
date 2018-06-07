@@ -15,8 +15,8 @@ import java.util.List;
 
 
 /**
- * This is controller responsible for handling /user web requests. Its allowed for users {@link User} with
- * both ROLE_USER and ROLE_ADMIN role {@link pl.coderslab.betok.entity.Role}. It handles most operations user can
+ * This is controller responsible for handling /user web requests. Its allowed for {@link User} with
+ * both ROLE_USER and ROLE_ADMIN  {@link pl.coderslab.betok.entity.Role}. It handles most operations user can
  * request in the system.
  */
 @Controller
@@ -154,7 +154,7 @@ public class UserController {
     }
 
     /**
-     * GET for adding a team {@link Team} to favorites list for loggedIn user
+     * GET for adding a {@link Team} to favorites list for loggedIn user
      *
      *  Verification if such team isn't on the list already. If yes - it simply redirects to Fav list without adding.
      * @param authentication used for determining currently loggedIn user
@@ -206,7 +206,7 @@ public class UserController {
     }
 
     /**
-     * GET for listing last 10 events {@link Event} with 'FT' status - so the last ones that ended
+     * GET for listing last 10 {@link Event} with 'FT' status - so the last ones that ended
      *
      */
     @GetMapping("/user/lastEvents")
@@ -254,5 +254,28 @@ public class UserController {
         return "redirect:/home";
     }
 
+    @GetMapping("/user/addAddress")
+    public String userAddAddress(Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        model.addAttribute(user);
+
+        Address address = new Address();
+        model.addAttribute("address", address);
+
+        return "user/AddressForm";
+    }
+
+    @PostMapping("/user/addAddress")
+    public String userAddAddress(@ModelAttribute Address address, BindingResult result, Authentication authentication) {
+        if (result.hasErrors()) {
+            return "user/UserEditForm";
+        }
+        User userDb = userService.getLoggedUser(authentication);
+        userDb.setAddress(address);
+
+        userService.updateUser(userDb);
+
+        return "redirect:/home";
+    }
 
 }

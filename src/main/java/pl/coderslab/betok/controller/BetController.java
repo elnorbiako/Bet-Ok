@@ -18,7 +18,7 @@ import java.util.List;
 
 
 /**
- * This is controller responsible for handling web requests regarding Bets {@link Bet}, along with critical functionality
+ * This is controller responsible for handling web requests regarding {@link Bet}, along with critical functionality
  * of placing a bet.
  *
  */
@@ -39,10 +39,10 @@ public class BetController {
     }
 
     /**
-     * GET for placing a bet  {@link pl.coderslab.betok.entity.Bet}.
+     * GET for placing a {@link pl.coderslab.betok.entity.Bet}.
      *
      *
-     * @return Bet Form with already defined parameters: User {@link User}, Event {@link Event} and odds
+     * @return Bet Form with already defined parameters: {@link User}, {@link Event} and odds
      * chosen by user on EventView.
      *
      * */
@@ -76,7 +76,7 @@ public class BetController {
     }
 
     /**
-     * POST for placing a bet  {@link pl.coderslab.betok.entity.Bet}.
+     * POST for placing a {@link pl.coderslab.betok.entity.Bet}.
      * @param eventId Event for which this particural bet will be placed
      *
      * @param odd Odd (bet type) chosen by user on Event Page.
@@ -139,7 +139,7 @@ public class BetController {
     }
 
     /**
-     * GET for listing all bets {@link Bet} for a loggedIn user {@link User}- both active and passive (with result).
+     * GET for listing all {@link Bet} for a loggedIn {@link User}- both active and passive (with result).
      *
      */
 

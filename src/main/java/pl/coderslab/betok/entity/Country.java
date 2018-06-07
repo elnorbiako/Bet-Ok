@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Entity for representing countries. Right now its if filled from API football, where it gathers all leagues from
  * particular country (and probably national teams). Right now there is no further use of it.
- * In future it can be connected to User {@link User} address {@link Address} to determine Favorites proposals,
+ * In future it can be connected to {@link User} {@link Address} to determine Favorites proposals,
  * listing of Events, localisation based promotions etc.
  */
 @Entity

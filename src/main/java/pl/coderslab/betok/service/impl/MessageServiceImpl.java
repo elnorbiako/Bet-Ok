@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Service for handling in-app Message System.
  *
- * In future it can handle User to User {@link User} communication and be extended with email sending support
+ * In future it can handle User to {@link User} communication and be extended with email sending support
  */
 @Service
 public class MessageServiceImpl implements MessageService {

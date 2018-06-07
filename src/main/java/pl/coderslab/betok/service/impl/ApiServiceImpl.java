@@ -16,8 +16,8 @@ import java.util.List;
 
 /**
  * Service for translating data from our database to our external API. Right now it supports possibility of getting
- * Upcoming events {@link Event}, specified user transaction (with given userId) {@link Transaction} or list of all
- * transactions, and a list of bets {@link Bet} for given user (with given userId).
+ * Upcoming {@link Event}, specified user transaction (with given userId) {@link Transaction} or list of all
+ * transactions, and a list of {@link Bet} for given user (with given userId).
  *
  * Data is requested and transfered via ApiControllers {@link pl.coderslab.betok.controller.api.ApiEventController},
  * {@link pl.coderslab.betok.controller.api.ApiBetController}, {@link pl.coderslab.betok.controller.api.ApiTransactionController}

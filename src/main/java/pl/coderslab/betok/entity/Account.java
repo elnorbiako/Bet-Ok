@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * This entity represent an User's {@link User} account, which held transactions {@link Transaction} list and total
+ * This entity represent an {@link User} account, which held {@link Transaction} list and total
  * balance.
  * In future there should be some kind of scheduled verification of integrity (sum of all transactions = balance)
  * with system alerts if sum isn't right.

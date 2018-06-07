@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <!-- Page title -->
     <title> User Edit</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: gainsboro;
+            color: brown;
+        }
+
+        td {
+            background: gainsboro;
+            padding: 12px;
+        }
+    </style>
 </head>
 <body>
+
+
+<div style="float: right;">
+
+    <p sec:authorize="isAuthenticated()">
+    <p>Logged as: <span sec:authentication="name"></span></p>
+    <p sec:authorize-url="/admin/">Roles: <span sec:authentication="authorities"></span></p>
+    <p>Account balance: <span th:text="|*{user.account.getCash()} credits|">69></span></p>
+    </p>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Logout"/>
+    </form>
+
+    <p>First name:  <span th:text="|${user.firstName}|">69></span></p>
+    <p>Last name:  <span th:text="|${user.lastName}|">69></span></p>
+    <p>Email:  <span th:text="|${user.email}|">69></span></p>
+    <p>Address: </p>
+    <!--<p>Street name:  <span th:text="|${address.streetName}|">69></span></p>-->
+    <!--<p>Street number:  <span th:text="|${address.streetNumber}|">69></span></p>-->
+    <!--<p>City:  <span th:text="|${address.city}|">69></span></p>-->
+    <!--<p>Country:  <span th:text="|${address.country}|">69></span></p>-->
+    <!--<p>Zip code:  <span th:text="|${address.zipCode}|">69></span></p>-->
+</div>
 
 
 <form th:action="@{/user/edit}" th:object="${user}" method="post">
@@ -16,6 +60,13 @@
     <button type="submit">Save changes</button>
 
 </form>
+
+<br>
+
+<a th:href="@{/user/addAddress}">
+    <button>Add user address.</button>
+</a><br>
+
 
 
 </body>

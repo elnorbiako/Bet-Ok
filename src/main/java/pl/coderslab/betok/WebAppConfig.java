@@ -20,6 +20,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 
         registry.addViewController("/test").setViewName("Test");
         registry.addViewController("/403").setViewName("403");
+       // registry.addViewController("/error").setViewName("500");
 
     }
 }

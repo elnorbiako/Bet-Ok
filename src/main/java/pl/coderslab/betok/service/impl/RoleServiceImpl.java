@@ -7,7 +7,7 @@ import pl.coderslab.betok.repository.RoleRepository;
 import pl.coderslab.betok.service.RoleService;
 
 /**
- * Service that handles Roles {@link Role}. Its used in a overwriting Spring Security basic roles.
+ * Service that handles {@link Role}. Its used in a overwriting Spring Security basic roles.
  */
 @Service
 public class RoleServiceImpl implements RoleService {

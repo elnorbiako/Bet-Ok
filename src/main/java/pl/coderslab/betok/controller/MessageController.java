@@ -56,7 +56,7 @@ public class MessageController {
     }
 
     /**
-     * GET or listing a sigle message for a given user. It sets message {@link Message} isRead boolean to true,
+     * GET or listing a sigle message for a given user. It sets {@link Message} isRead boolean to true,
      * so message won't be any longer listed as NEW!
      *
      */

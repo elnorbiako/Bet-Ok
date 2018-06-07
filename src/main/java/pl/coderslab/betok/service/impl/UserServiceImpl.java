@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Service for handling logic for User entity {@link User}.
+ * Service for handling logic for {@link User} entity.
  */
 @Service
 @Transactional
@@ -61,11 +61,11 @@ public class UserServiceImpl implements UserService {
      * SaveUser method, used mostly when registering a new User.
      *      Procedure:
      *      1) Takes a valid user from UserForm
-     *      2) Hashes users password using a BCrypt {@link BCryptPasswordEncoder} mechanism
+     *      2) Hashes users password using a {@link BCryptPasswordEncoder} mechanism
      *      3) Sets a User role to new user
      *      4) Creates new account with 0 founds; Can be easly switched to some other amount (for ex. 200 bonus for
      *      registration) - will need a validation during cashout
-     *      5) Saves new user using UserRepo {@link UserRepository}
+     *      5) Saves new user using {@link UserRepository}
      *
      * @param user new user from UserForm POST
      */
@@ -91,11 +91,11 @@ public class UserServiceImpl implements UserService {
      * SaveAdmin method, used mostly when registering a new Admin. Operation available only for other admin.
      *      Procedure:
      *      1) Takes a valid user from AdminForm
-     *      2) Hashes users password using a BCrypt {@link BCryptPasswordEncoder} mechanism
+     *      2) Hashes users password using a {@link BCryptPasswordEncoder} mechanism
      *      3) Sets a User role to new user & Admin
      *      4) Creates new account with 0 founds; Can be easly switched to some other amount (for ex. 200 bonus for
      *      registration) - will need a validation during cashout
-     *      5) Saves new admin using UserRepo {@link UserRepository}
+     *      5) Saves new admin using {@link UserRepository}
      *
      * @param user new admin from AdminForm POST
      */

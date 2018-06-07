@@ -20,7 +20,7 @@ import java.util.List;
 
 
 /**
- * This is controller responsible for handling web requests regarding Events {@link Event}, along with functionality
+ * This is controller responsible for handling web requests regarding {@link Event}, along with functionality
  * of live taking data of Head to Head from API Football.
  *
  */
@@ -43,7 +43,7 @@ public class EventController {
     }
 
     /**
-     * GET for listing Teams {@link Team} for EventView.
+     * GET for listing {@link Team} for EventView.
      *
      * @param id eventId to define Event from link.
      *
@@ -69,7 +69,7 @@ public class EventController {
     }
 
     /**
-     * GET for listing Team {@link Team} for TeamView (divided to home/away)
+     * GET for listing {@link Team} for TeamView (divided to home/away)
      *
      * @param name Team name is required, as this is a unique identificator for teams (mainly because API Football don't have
      *             ids for them, so every request regarding team must include teamname

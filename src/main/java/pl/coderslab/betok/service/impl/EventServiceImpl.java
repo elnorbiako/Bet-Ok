@@ -52,7 +52,7 @@ public class EventServiceImpl implements EventService {
      * Method for generating a UpcomingEvent.
      * It takes a random true event from database, randomize new date (+1-5 days from now), randomize new id to have a
      * unique one in DB, sets match status to 'SCHEDULED' (so a planned event) and a result to '0' (no result).
-     * Rest of informations (time, teams, league) are used from original true event.
+     * Rest of information (time, teams, league) are used from original true event.
      */
     @Override
     public void generateFutureEvent() {
@@ -152,14 +152,14 @@ public class EventServiceImpl implements EventService {
     }
 
     /**
-     * Method simulates upcoming event {@link Event} and determines result.
-     * It constantly (via scheduled tasks {@link pl.coderslab.betok.scheduled.ScheduledTasks} ) checks, if date and time
+     * Method simulates upcoming {@link Event} and determines result.
+     * It constantly (via  {@link pl.coderslab.betok.scheduled.ScheduledTasks} ) checks, if date and time
      * of upcoming event is still in future. If it passes .now() match is simulated:
      *      1) Status is set to 'FT'
      *      2) Goals are randomized for two teams
      *      3) Result is determined on numbers of goals (possible options: 1, X, 2)
      *
-     *  And then event is saved to DB using EventRepo {@link EventRepository}
+     *  And then event is saved to DB using {@link EventRepository}
      *
      *  in 'normal conditions' this method would probably only check for scores from API Football and then set result
      *  based on a number of goals for each team.

@@ -7,7 +7,7 @@ import pl.coderslab.betok.repository.AccountRepository;
 import pl.coderslab.betok.service.AccountService;
 
 /**
- * Service that connects Account Repo {@link AccountRepository} and holds needed logic.
+ * Service that connects {@link AccountRepository} and holds needed logic.
  */
 @Service
 public class AccountServiceImpl implements AccountService {

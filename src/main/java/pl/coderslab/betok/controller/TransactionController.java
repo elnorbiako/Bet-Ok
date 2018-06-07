@@ -11,7 +11,7 @@ import pl.coderslab.betok.service.TransactionService;
 
 
 /**
- * Controller responsible for web requests regarding Transactions {@link Transaction}.
+ * Controller responsible for web requests regarding {@link Transaction}.
  */
 @Controller
 public class TransactionController {
@@ -22,7 +22,7 @@ public class TransactionController {
 
     /**
      * GET listing a single transaction with detailed info
-     * @param id required for single bet
+     * @param id required for single {@link pl.coderslab.betok.entity.Bet}
      *
      */
     @GetMapping("/transaction")

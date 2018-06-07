@@ -43,7 +43,7 @@ public class AdminController {
 
 
     /**
-     * GET for adding a new user {@link User} with ADMIN_ROLE rights. Only another admin can perform this operation.
+     * GET for adding a new {@link User} with ADMIN_ROLE rights. Only another admin can perform this operation.
      * @return Form for creating new user with admin rights
      *
      */
@@ -55,7 +55,7 @@ public class AdminController {
     }
 
     /**
-     * POST for adding a new user {@link User} with ADMIN_ROLE rights. Only another admin can perform this operation.
+     * POST for adding a new {@link User} with ADMIN_ROLE rights. Only another admin can perform this operation.
      * @param  user from Spring Security logged in User
      *
      */
@@ -81,7 +81,7 @@ public class AdminController {
     }
 
     /**
-     * GET for listing all users {@link User} in DB.
+     * GET for listing all {@link User} in DB.
      *
      */
     @GetMapping("/admin/users")

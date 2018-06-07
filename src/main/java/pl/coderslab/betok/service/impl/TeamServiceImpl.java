@@ -7,7 +7,7 @@ import pl.coderslab.betok.repository.TeamRepository;
 import pl.coderslab.betok.service.TeamService;
 
 /**
- * Service responsible for handling Teams {@link Team}
+ * Service responsible for handling {@link Team}
  */
 @Service
 public class TeamServiceImpl implements TeamService {

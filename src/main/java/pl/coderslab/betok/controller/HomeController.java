@@ -38,7 +38,7 @@ public class HomeController {
     /**
      * GET for creating a Home page, passes to model info about logged user (for showing username and account balance)
      * and list of 10 scheduled events
-     * @return
+     *
      */
 
     @GetMapping("/home")

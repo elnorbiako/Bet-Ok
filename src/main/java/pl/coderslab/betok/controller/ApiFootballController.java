@@ -13,8 +13,8 @@ import pl.coderslab.betok.service.APIFootballService;
  * This is controller responsible for handling web requests regarding connection to API Football
  * {@link ://apifootball.com/}.
  * Normally it would be used on a scheduled basis, but due to lack of events (pre World Cup period) it is used once for
- * populating DB with Countries {@link pl.coderslab.betok.entity.Country}, Leagues {@link pl.coderslab.betok.entity.League},
- * Teams {@link pl.coderslab.betok.entity.Team} and Events {@link pl.coderslab.betok.entity.Event}.
+ * populating DB with  {@link pl.coderslab.betok.entity.Country},  {@link pl.coderslab.betok.entity.League},
+ *  {@link pl.coderslab.betok.entity.Team} and {@link pl.coderslab.betok.entity.Event}.
  *
  * Accessible from Admin panel.
  */
@@ -52,7 +52,7 @@ public class ApiFootballController {
     }
 
     /**
-     * GET for adding teams {@link pl.coderslab.betok.entity.Team} to DB.
+     * GET for adding {@link pl.coderslab.betok.entity.Team} to DB.
      * It is required by API Football to state leagueId from which teams & standings will be presented.
      * In our free plan, we have only access to two leagues: English Championship and French Ligue2.
      *
@@ -66,7 +66,7 @@ public class ApiFootballController {
     }
 
     /**
-     * GET for adding events {@link pl.coderslab.betok.entity.Event} to DB.
+     * GET for adding {@link pl.coderslab.betok.entity.Event} to DB.
      * From plenty of data on API Football, right now I'm using only most important ones, like teams, result, date,
      * time. In future it can be expended to use team details (like formation, players, goal scorers and so on).
      *

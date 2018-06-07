@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <!-- Page title -->
+    <title>Register</title>
+</head>
+<body>
+
+<form th:action="@{/user/addAddress}" th:object="${address}" method="post">
+
+    <p th:if="${#fields.hasErrors('streetName')}" th:errors="*{streetName}"></p>
+    <p>streetName: <input type="text" th:field="*{streetName}" />
+
+    <p th:if="${#fields.hasErrors('streetNumber')}" th:errors="*{streetNumber}"></p>
+    <p>Street Number: <input type="number" th:field="*{streetNumber}" /></p>
+
+    <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
+    <p>City name: <input type="text" th:field="*{city}" />
+
+    <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></p>
+    <p>Country: <input type="text" th:field="*{country}" />
+
+    <p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></p>
+    <p>Zip Code: <input type="text" th:field="*{zipCode}" /><br>
+
+     <button type="submit">Save</button>
+</form>
+
+
+</body>
+</html>

@@ -5,8 +5,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * Representation of a in-app Message system. Right now it is used to send system messages for transactions
- * {@link Transaction} like CashIn, CashOut, BetPlaced, BetWin. In future it can be extended to a User {@link User} to
+ * Representation of a in-app Message system. Right now it is used to send system messages for {@link Transaction}
+ * like CashIn, CashOut, BetPlaced, BetWin. In future it can be extended to a {@link User} to
  * user messages, and add a email sending support (as all users needs to state emails for their account).
  */
 @Entity

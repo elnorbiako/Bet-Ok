@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Respresentation of a League (from API football), which is connected to a Country {@link Country}. It helds all
- * teams {@link Team} that are gathered in this league for this season.
+ * Respresentation of a League (from API football), which is connected to a {@link Country}. It helds all
+ * {@link Team} that are gathered in this league for this season.
  * Can be upgraded to held actual standings for current season (and maybe a history for past ones),
  * also with scheduled sync to API Football
  *
