@@ -53,7 +53,7 @@ public class EventController {
      */
 
     @GetMapping("/event")
-    public String home(@RequestParam(value = "id", required = true) long id, Model model, Authentication authentication) {
+    public String eventView(@RequestParam(value = "id", required = true) long id, Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
         model.addAttribute(user);
 
@@ -76,7 +76,7 @@ public class EventController {
      *
      */
     @GetMapping("/team")
-    public String home(@RequestParam(value = "name", required = true) String name, Model model, Authentication authentication) {
+    public String teamView(@RequestParam(value = "name", required = true) String name, Model model, Authentication authentication) {
         User user = userService.getLoggedUser(authentication);
         model.addAttribute(user);
 
@@ -93,6 +93,18 @@ public class EventController {
         List<Event> eventsAway = eventService.findAwayByTeamName(name, "FT");
         model.addAttribute("eventsAway", eventsAway);
         return "user/TeamView";
+    }
+
+    @GetMapping("/pastEvent")
+    public String pastEvent(@RequestParam(value = "id", required = true) long id, Model model, Authentication authentication) {
+        User user = userService.getLoggedUser(authentication);
+        model.addAttribute(user);
+
+        Event event = eventService.findById(id);
+        model.addAttribute("event", event);
+
+
+        return "user/PastEventView";
     }
 
 }

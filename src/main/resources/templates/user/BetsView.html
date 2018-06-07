@@ -121,7 +121,7 @@
             <td th:text="*{created}">Date</td>
 
             <td>
-                <a th:href="@{/event(id=*{event.getId()})}" th:text="|*{event.getHomeTeamName()}  vs  *{event.getAwayTeamName()}">Teams</a>
+                <a th:href="@{/pastEvent(id=*{event.getId()})}" th:text="|*{event.getHomeTeamName()}  vs  *{event.getAwayTeamName()}">Teams</a>
             </td>
 
             <td th:text="|*{event.getHomeGoals()} : *{event.getAwayGoals()}">Goals</td>

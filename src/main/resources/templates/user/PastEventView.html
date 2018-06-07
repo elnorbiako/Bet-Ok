@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>Last events</title>
+    <title>Past Event</title>
     <style>
         * {
             font-size: 12pt;
@@ -44,7 +44,7 @@
 
 
 <div align="center">
-<h3 th:text="|Last events: |">Events</h3>
+<h3 th:text="|Event: |">Events</h3>
 <table>
     <tr>
         <th>Info</th>
@@ -54,7 +54,7 @@
 
 
     </tr>
-    <tr th:each="event, iterStat: ${events}" th:object="${event}">
+    <tr th:each="event, iterStat: ${event}" th:object="${event}">
         <!--<td th:text="|${iterStat.count}.|">1.</td>-->
         <td>
             <p th:text="|*{date}   *{time}|">11</p>
@@ -73,5 +73,6 @@
     </tr>
 </table>
 </div>
+
 </body>
 </html>
