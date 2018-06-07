@@ -71,7 +71,7 @@ public class BetServiceImpl implements BetService {
      * {@link TransactionServiceImpl} saves BetWin transaction along with sending message informing about win.
      * Then bet is saved as a inactive one, to be checked in User MyBets view.
      * In case of loosing - bet is saved with L result. There can be added a transaction task here, which transfers cash
-     * to central account of system income :) 
+     * to central account of system income :)
      */
     @Override
     public void betVerificator() {

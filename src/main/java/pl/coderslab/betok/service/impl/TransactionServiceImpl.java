@@ -14,20 +14,21 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Service responsible for handling Transaction {@link Transaction} logic. It simulates in-app accounting system.
+ * There are four main transactions: CashIn, CashOut, PlaceBet, BetWin.
+ */
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    final
-    TransactionTypeRepository transactionTypeRepository;
+    final private TransactionTypeRepository transactionTypeRepository;
 
-    final
-    TransactionRepository transactionRepository;
+    final private TransactionRepository transactionRepository;
 
-    final
-    AccountRepository accountRepository;
+    final private AccountRepository accountRepository;
 
-    final
-    MessageService messageService;
+    final private MessageService messageService;
 
     @Autowired
     public TransactionServiceImpl(TransactionTypeRepository transactionTypeRepository,
@@ -60,6 +61,19 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findTop50ByOrderByCreatedDesc();
     }
 
+    /**
+     * Method for CashIn transaction - so when user {@link User} want to add money to his account {@link Account}.
+     * Procedure:
+     *      1) sets created to now().
+     *      2) updates account balance for loggedIn User
+     *      3) sets transactionType to 'CashIn'
+     *      4) saves both account and transaction
+     *      5) using messageService {@link MessageServiceImpl} it sends a system message with info about transaction.
+     * @param amount amount from Cash In form, how much money users wants to add to account
+     * @param account account for a loggedIn user (in theory its a separate param to allow adding money not to own account,
+     *                but also another (give cash to a friend, or system adding money as a bonus)
+     * @param user currently loggedIn user
+     */
     @Transactional
     @Override
     public void saveCashInTransaction(BigDecimal amount, Account account, User user) {
@@ -78,9 +92,21 @@ public class TransactionServiceImpl implements TransactionService {
         message.setMessageText("Test message from System. Amount: "+ amount.toString() + " credits." );
         messageService.sendSystemMessage(message, user);
 
-    //    System.out.println(account.getUser().getUsername());
-    }
 
+
+    }
+    /**
+     * Method for CashOut transaction - so when user {@link User} wants to withdraw money from his account {@link Account}.
+     * Procedure:
+     *      1) sets created to now().
+     *      2) updates account balance for loggedIn User
+     *      3) sets transactionType to 'CashOut'
+     *      4) saves both account and transaction
+     *      5) using messageService {@link MessageServiceImpl} it sends a system message with info about transaction.
+     * @param amount amount from POST CashOut form, how much money users wants to withdraw
+     * @param account account for a loggedIn user
+     * @param user currently loggedIn user
+     */
     @Transactional
     @Override
     public void saveCashOutTransaction(BigDecimal amount, Account account, User user) {
@@ -100,6 +126,12 @@ public class TransactionServiceImpl implements TransactionService {
         messageService.sendSystemMessage(message, user);
     }
 
+    /**
+     * Similar to CashOut transaction, but amount is transfered to placed Bet {@link Bet}
+     * @param amount amount of cash invested in particular Bet
+     * @param account user account, separate for future implementation of a group bet
+     * @param user loggedIn user
+     */
     @Transactional
     @Override
     public void savePlaceBetTransaction(BigDecimal amount, Account account, User user) {
@@ -118,6 +150,14 @@ public class TransactionServiceImpl implements TransactionService {
         message.setMessageText("Test message from System. Amount: "+ amount.toString() + " credits." );
         messageService.sendSystemMessage(message, user);
     }
+
+    /**
+     * Similar to CashIn transaction, it transfers Bet prize (rate*amount) to Users account with a confirm message from
+     * system.
+     * @param amount bet prize
+     * @param account users account (in future Group bet this will be a separate support account)
+     * @param user Bet owner
+     */
 
     @Transactional
     @Override

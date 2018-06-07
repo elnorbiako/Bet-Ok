@@ -11,6 +11,11 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
+        /**
+         * Method takes a random event from database - for purpose of generating a future event by EventService
+         * {@link pl.coderslab.betok.service.impl.EventServiceImpl}
+         * @return Event randomly taken from DB (so a real one from API Football)
+         */
         @Query(value="SELECT * FROM events ORDER BY RAND() LIMIT 1", nativeQuery = true)
         Event findRandomEvent();
 

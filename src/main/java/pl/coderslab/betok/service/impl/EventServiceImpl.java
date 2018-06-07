@@ -13,14 +13,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Service for handling all the logic regarding Events, along with generating future ones and simulating matches (no use
+ * in 'normal' conditions)
+ */
 @Service
 public class EventServiceImpl implements EventService {
 
 
     private final EventRepository eventRepository;
 
-//    private final EventService eventService;
-
+    /**
+     * Date formatter used for combining two separate fields event.date and event.time {@link Event}
+     */
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public EventServiceImpl(EventRepository eventRepository) {
@@ -34,11 +39,21 @@ public class EventServiceImpl implements EventService {
         return null;
     }
 
+    /**
+     *
+     * @return Random event from DB - for future events purposes
+     */
     @Override
     public Event findRandomEvent() {
         return eventRepository.findRandomEvent();
     }
 
+    /**
+     * Method for generating a UpcomingEvent.
+     * It takes a random true event from database, randomize new date (+1-5 days from now), randomize new id to have a
+     * unique one in DB, sets match status to 'SCHEDULED' (so a planned event) and a result to '0' (no result).
+     * Rest of informations (time, teams, league) are used from original true event.
+     */
     @Override
     public void generateFutureEvent() {
         Random r = new Random();
@@ -57,7 +72,10 @@ public class EventServiceImpl implements EventService {
         futureEvent.setAwayTeam(event.getAwayTeam());
         futureEvent.setLeague(event.getLeague());
         futureEvent.setResult("0");
-
+        /**
+         * This part would be normally dowloaded from extrnal odds API. Due to problems with API Football, ods are
+         * randomized
+         */
         futureEvent.setOdd_1(BigDecimal.valueOf((r.nextInt(4)+1) + r.nextDouble()));
         futureEvent.setOdd_x(BigDecimal.valueOf((r.nextInt(4)+1) + r.nextDouble()));
         futureEvent.setOdd_2(BigDecimal.valueOf((r.nextInt(4)+1) + r.nextDouble()));
@@ -65,6 +83,10 @@ public class EventServiceImpl implements EventService {
         eventRepository.save(futureEvent);
     }
 
+    /**
+     * Method similar to generateFutureEvent, but generates a quick event (1-5 minutes from now) - mostly for test
+     * and presentation purposes.
+     */
     @Override
     public void generateFutureEventShort() {
 
@@ -129,6 +151,20 @@ public class EventServiceImpl implements EventService {
         return eventRepository.findTop5ByAwayTeamNameAndStatusOrderByDateDesc(name, status);
     }
 
+    /**
+     * Method simulates upcoming event {@link Event} and determines result.
+     * It constantly (via scheduled tasks {@link pl.coderslab.betok.scheduled.ScheduledTasks} ) checks, if date and time
+     * of upcoming event is still in future. If it passes .now() match is simulated:
+     *      1) Status is set to 'FT'
+     *      2) Goals are randomized for two teams
+     *      3) Result is determined on numbers of goals (possible options: 1, X, 2)
+     *
+     *  And then event is saved to DB using EventRepo {@link EventRepository}
+     *
+     *  in 'normal conditions' this method would probably only check for scores from API Football and then set result
+     *  based on a number of goals for each team.
+     *
+     */
     @Override
     public void simulateUpcomingEvents() {
 

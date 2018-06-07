@@ -7,6 +7,10 @@ import pl.coderslab.betok.repository.TransactionTypeRepository;
 import pl.coderslab.betok.service.MessageService;
 import pl.coderslab.betok.service.TransactionTypeService;
 
+/**
+ * Service for handling Transaction Type {@link TransactionType}
+ */
+
 @Service
 public class TransactionTypeServiceImpl implements TransactionTypeService {
 

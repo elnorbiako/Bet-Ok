@@ -6,11 +6,18 @@ import pl.coderslab.betok.entity.Team;
 import pl.coderslab.betok.repository.TeamRepository;
 import pl.coderslab.betok.service.TeamService;
 
+/**
+ * Service responsible for handling Teams {@link Team}
+ */
 @Service
 public class TeamServiceImpl implements TeamService {
 
+    final private TeamRepository teamRepository;
+
     @Autowired
-    TeamRepository teamRepository;
+    public TeamServiceImpl(TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
+    }
 
     @Override
     public Team findByName(String name) {
