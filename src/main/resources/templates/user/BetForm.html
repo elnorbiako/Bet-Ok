@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!--<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
     <!-- Page title -->
     <title> Place bet</title>
+    <style>
+        * {
+            font-size: 12pt;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: gainsboro;
+            color: brown;
+        }
+
+        td {
+            background: gainsboro;
+            padding: 12px;
+        }
+    </style>
 </head>
 <body>
+<div style="float: right;">
+
+    <p sec:authorize="isAuthenticated()">
+    <p>Logged as: <span sec:authentication="name"></span></p>
+    <p>Account balance: <span th:text="|*{user.account.getCash()} credits|">69></span></p>
+    </p>
+
+
+
+</div>
 
 <p th:text="${message}"/>
 <p th:text="| Event: ${event.homeTeamName}  vs.  ${event.awayTeamName} |"/>
