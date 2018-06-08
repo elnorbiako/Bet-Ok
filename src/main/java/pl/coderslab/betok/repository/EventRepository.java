@@ -2,6 +2,7 @@ package pl.coderslab.betok.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import pl.coderslab.betok.entity.Country;
 import pl.coderslab.betok.entity.Event;
 
@@ -24,8 +25,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
         List<Event> findTop10ByStatusOrderByDateDescTimeDesc(String status);
 
 
-
-        List<Event> findTop3ByStatusAndHomeTeamNameOrAwayTeamNameOrderByDate(String status, String homeTeamName, String awayTeamName);
+        @Query(value = "SELECT * from events WHERE home_team_name OR away_team_name LIKE :teamName AND status LIKE :status", nativeQuery = true)
+        List<Event> findTop3ByStatusAndHomeTeamNameOrAwayTeamNameOrderByDate(@Param("teamName") String teamName, @Param("status") String status);
 
 
         List<Event> findAllByStatusOrderByDateAsc(String status);

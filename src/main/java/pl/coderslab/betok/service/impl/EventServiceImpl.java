@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -127,8 +128,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> find3UpcomingEventsForTeam(String status, String teamName1, String teamName2) {
-        return eventRepository.findTop3ByStatusAndHomeTeamNameOrAwayTeamNameOrderByDate(status, teamName1, teamName2);
+    public List<Event> find3UpcomingEventsForTeam(String teamName, String status) {
+        return eventRepository.findTop3ByStatusAndHomeTeamNameOrAwayTeamNameOrderByDate(teamName, status);
     }
 
     @Override
@@ -198,6 +199,18 @@ public class EventServiceImpl implements EventService {
             }
 
         }
+
+    }
+
+    @Override
+    public List<Event> findHomeOrAwayByStatus(String name, String status) {
+
+        List<Event> events = new ArrayList<>();
+
+        events.addAll(findHomeByTeamName(name, status));
+        events.addAll(findAwayByTeamName(name, status));
+
+        return events;
 
     }
 }

@@ -21,7 +21,7 @@ public interface EventService {
 
      List<Event> find10LastEvents(String status);
 
-    List<Event> find3UpcomingEventsForTeam(String status, String teamName1, String teamName2);
+    List<Event> find3UpcomingEventsForTeam(String teamName, String status);
 
 
     List<Event> findAllScheduledEvents(String status);
@@ -33,4 +33,6 @@ public interface EventService {
     List<Event> findAwayByTeamName(String name, String status);
 
     void simulateUpcomingEvents();
+
+    List<Event> findHomeOrAwayByStatus(String name, String status);
 }

@@ -83,8 +83,10 @@ public class EventController {
         Team team = teamRepository.findByName(name);
         model.addAttribute("team", team);
 
-//        List<Event> events = eventService.find3UpcomingEventsForTeam( "SCHEDULED", name, name);
-//        model.addAttribute("events", events);
+        List<Event> events = eventService.findHomeOrAwayByStatus(name, "SCHEDULED");
+        model.addAttribute("events", events);
+
+        System.out.println(events.get(0).getHomeTeamName());
 
         List<Event> eventsHome = eventService.findHomeByTeamName(name, "FT");
         model.addAttribute("eventsHome", eventsHome);
